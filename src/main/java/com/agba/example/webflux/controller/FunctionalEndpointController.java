@@ -47,8 +47,10 @@ public class FunctionalEndpointController {
                         return response.createError();
                     }
                 }).doOnNext(response -> {
-//                            logger.info("response: " + response);
-//                            headers.forEach((key, value) -> logger.info(String.format("Header '%s' = %s", key, value)));
+                            logger.info("Original Obj: {}", response);
+                            StringBuilder sb = new StringBuilder();
+                            headers.forEach((key, value) -> sb.append(String.format("\nHeader '%s' = %s", key, value)));
+                            logger.info(sb.toString());
                         }
                 );
         Mono<InvestorResponse> returnMono = investorResponseMono.map(res -> {
@@ -57,12 +59,13 @@ public class FunctionalEndpointController {
             res.investor().setLastName("Chan");
             //Create new Response with modified obj
             InvestorResponse _invResponse = new InvestorResponse(res.investor());
+            logger.info("Modified Obj: {}", _invResponse);
             return _invResponse;
         });
 
         investorResponseMono.subscribe(investorResponse -> {
-//            investorResponse.investor().setClientNumber("NM");
-//            investorResponse.investor().setFirstName("FIRST_NAME");
+            investorResponse.investor().setClientNumber("subscribe001");
+            investorResponse.investor().setFirstName("subscribed_firstName");
             logger.info(investorResponse.toString());
         });
 //        investorResponseMono.subscribe(investorResponse -> logger.info("investorResponse: {}", investorResponse));

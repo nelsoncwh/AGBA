@@ -1,4 +1,16 @@
 app:
-    apim:
-        webClientDomain: https://api.3601.com.hk/
-        subscriptionKey: cd563a7eaace409a8cbce2a75aaa336b
+  apim:
+    webClientDomain: https://api.3601.com.hk/
+    subscriptionKey: cd563a7eaace409a8cbce2a75aaa336b
+
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-doc/swagger-ui.html
+#  api-docs:
+#    path: /swagger-doc/v3/api-docs
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true

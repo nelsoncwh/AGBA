@@ -37,6 +37,7 @@ public class InvestorFunctionalConfig {
                 req -> {
 //                    req.body(toMono(InvestorRequest.class));
                     logger.info("req.headers(): {}", req.headers());
+                    //temporaryRedirect will redirect the whole request with 403, adding header is not possible in this approach
                     return ServerResponse.temporaryRedirect(URI.create(webClientDomain + "/wms-rest/get-investor-by-account-number")).build();
                 }
         );
