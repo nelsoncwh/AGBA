@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: aop-be-app-cv1-sit
-          image: dtgsu1cv1cr01.azurecr.io/aop-be-app-cv1-sit:latest
+          image: __REPLACE_BY_YQ__
           ports:
             - containerPort: 8080
