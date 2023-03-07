@@ -1,4 +1,4 @@
-package com.agba.example.webflux.entity.request;
+package com.agba.wrapper.entity.request;
 
 public record InvestorRequest(
         String accountNumber

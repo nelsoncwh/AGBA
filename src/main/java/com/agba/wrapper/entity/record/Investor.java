@@ -1,4 +1,4 @@
-package com.agba.example.webflux.entity.record;
+package com.agba.wrapper.entity.record;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
