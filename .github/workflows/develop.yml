@@ -8,7 +8,7 @@ env:
   RESOURCE_GROUP_NAME: 'DTGS-U1-CV1-RG-03'
   CLUSTER_NAME: 'DTGS-U1-CV1-AKS-01'
   NAMESPACE: 'sit'
-  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/sit/aop-be-app-cv1-sit:${{ github.sha }}
+  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/sit/aop-be-app-cv1:${{ github.sha }}
 
 permissions:
   id-token: write
@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   AKS-Deployment:
+    environment: sit
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
