@@ -1,6 +1,6 @@
 package com.agba.wrapper.web;
 
-import com.agba.wrapper.entity.request.InvestorRequest;
+import com.agba.wrapper.entity.request.InvestorReq;
 import com.agba.wrapper.webclient.FunctionalEndpointController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,12 +20,12 @@ public class WrapperApplicationTests {
     @Test
     public void EndpointWithRequestBody() {
 
-        InvestorRequest req = new InvestorRequest("CAM00019172");
+        InvestorReq req = new InvestorReq("CAM00019172");
 
         WebTestClient.ResponseSpec response = webTestClient.post().uri("/investor/get-investor")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(req), InvestorRequest.class)
+                .body(Mono.just(req), InvestorReq.class)
                 .exchange();
 
         response.expectStatus().isOk()

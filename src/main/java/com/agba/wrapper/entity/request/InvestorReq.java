@@ -1,6 +1,6 @@
 package com.agba.wrapper.entity.request;
 
-public record InvestorRequest(
+public record InvestorReq(
         String accountNumber
 ) {
 }
