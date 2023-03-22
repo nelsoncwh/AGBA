@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: aop-be-app-cv1-sit-lb
   namespace: sit
+  labels:
+    app: aop-be-app-cv1-sit
+    team: spring-boot-actuator
 spec:
   type: LoadBalancer
   ports:
@@ -10,3 +13,4 @@ spec:
       targetPort: 8080
   selector:
     app: aop-be-app-cv1-sit
+    team: spring-boot-actuator

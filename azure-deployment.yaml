@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: aop-be-app-cv1-sit
+        team: spring-boot-actuator
     spec:
       containers:
         - name: aop-be-app-cv1-sit
