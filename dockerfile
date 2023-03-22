@@ -1,29 +1,14 @@
-# base image to build a JRE
-FROM amazoncorretto:17.0.3-alpine as corretto-jdk
+FROM maven:3.8.3-openjdk-17 AS build
+
 WORKDIR /app
 COPY src /app/src
 COPY pom.xml /app
+RUN mvn -f /app/pom.xml -Dmaven.test.skip=true clean package
 
-# required for strip-debug to work
-RUN apk add --no-cache binutils
-
-FROM alpine:3.17.2
+FROM openjdk:17-alpine
 RUN apk add --no-cache tzdata
-RUN $JAVA_HOME/bin/jlink \
-    --verbose \
-    --add-modules ALL-MODULE-PATH \
-    --strip-debug \
-    --no-man-pages \
-    --no-header-files \
-    --compress=2 \
-    --output /customjre
-    
 ENV TZ=Asia/Hong_Kong
-ENV JAVA_HOME=/jre
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
-
 RUN mkdir /app
-COPY --from=corretto-jdk /customjre $JAVA_HOME
 COPY --from=build /app/target/wrapper-1.0.0.jar /app/wrapper.jar
 
 EXPOSE 8080
