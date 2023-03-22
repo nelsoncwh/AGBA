@@ -5,7 +5,9 @@ COPY src /app/src
 COPY pom.xml /app
 RUN mvn -f /app/pom.xml -Dmaven.test.skip=true clean package
 
-FROM openjdk:17
+FROM alpine:3.17.2
+RUN apk add --no-cache tzdata
+ENV TZ=Asia/Hong_Kong
 
 RUN mkdir /app
 COPY --from=build /app/target/wrapper-1.0.0.jar /app/wrapper.jar
