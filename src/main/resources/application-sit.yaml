@@ -2,7 +2,7 @@ spring:
   application:
     name: wrapper
   webflux:
-    basePath: /v1/${spring.application.name}
+#    basePath: /v1/${spring.application.name}
 springdoc:
   swagger-ui:
     enabled: true
