@@ -64,6 +64,20 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Log4j2-api -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -121,12 +135,12 @@
         <!-- util -->
 
         <!-- For MacOS resolve DNS  problem -->
-<!--        <dependency>-->
-<!--            <groupId>io.netty</groupId>-->
-<!--            <artifactId>netty-resolver-dns-native-macos</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <classifier>osx-aarch_64</classifier>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.netty</groupId>-->
+        <!--            <artifactId>netty-resolver-dns-native-macos</artifactId>-->
+        <!--            <scope>runtime</scope>-->
+        <!--            <classifier>osx-aarch_64</classifier>-->
+        <!--        </dependency>-->
 
         <!-- Velocity -->
         <dependency>
@@ -172,14 +186,14 @@
         </plugins>
     </build>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>github</id>-->
-<!--            <url>https://maven.pkg.github.com/digitalgenesis-group/aop-be-lib-common-package</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>true</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>github</id>-->
+    <!--            <url>https://maven.pkg.github.com/digitalgenesis-group/aop-be-lib-common-package</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
 
 </project>

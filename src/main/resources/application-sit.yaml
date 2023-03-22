@@ -9,10 +9,20 @@ springdoc:
   api-docs:
     enabled: true
 management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
 server:
   port: 8080
 logging:
