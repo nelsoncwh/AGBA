@@ -23,6 +23,16 @@
         <util.version>1.2.0-SNAPSHOT</util.version>
         <data.version>1.2.0-SNAPSHOT</data.version>
     </properties>
+	<repositories>
+        <repository>
+          <id>github</id>
+		  <name>Repository for wms-be-metric-common artifacts</name>
+          <url>https://maven.pkg.github.com/digitalgenesis-group/wms-be-metric-common</url>
+          <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+	</repositories>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,10 +44,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.springframework.boot</groupId> -->
-<!--             <artifactId>spring-boot-starter-log4j2</artifactId> -->
-<!--         </dependency> -->
+		<dependency>
+			<groupId>com.agba.wealth</groupId>
+			<artifactId>metric-common</artifactId>
+			<version>0.0.2</version>
+		</dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>

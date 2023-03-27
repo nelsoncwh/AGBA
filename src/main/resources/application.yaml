@@ -1,6 +1,6 @@
 spring:
   application:
-    name: wrapper
+    name: aop-wms-rest
   webflux:
 #    basePath: /v1/${spring.application.name}
 springdoc:

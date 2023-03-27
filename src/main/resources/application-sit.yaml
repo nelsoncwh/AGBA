@@ -1,6 +1,6 @@
 spring:
   application:
-    name: wrapper
+    name: aop-wms-rest
   webflux:
 #    basePath: /v1/${spring.application.name}
 springdoc:
@@ -8,20 +8,6 @@ springdoc:
     enabled: true
   api-docs:
     enabled: true
-management:
-  endpoint:
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  metrics:
-    export:
-      prometheus:
-        enabled: true
 
 server:
   port: 8080
