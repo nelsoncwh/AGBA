@@ -74,9 +74,9 @@ public class InvestorJointDto {
     private String employerName;
     private List<InvestorTaxResidencyDto> taxResidency;
 
-    public void setInvestorId(InvestorDto investor) {
-        this.investorId = investor.getInvestorId();
-    }
+//    public void setInvestorId(InvestorDto investor) {
+//        this.investorId = investor.getInvestorId();
+//    }
 
     public void setCreatedDate(Instant createdDate) {
         if (createdDate != null)

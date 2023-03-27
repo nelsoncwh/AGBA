@@ -8,6 +8,7 @@ public class CommonConstant {
 
   // Path
   public static final String ACCESS_GET_INVESTOR_BY_AC_NUMBER = "/get-investor";
+//  public static final String ACCESS_GET_ADDITIONAL_INFO_BY_AC_NUMBER_RAW = "/get-additional-info-raw";
   public static final String ACCESS_GET_ADDITIONAL_INFO_BY_AC_NUMBER = "/get-additional-info";
   public static final String ACCESS_GET_CASH_BALANCE = "/cashBalance";
 

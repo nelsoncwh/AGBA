@@ -30,23 +30,23 @@ public class AdditionalInfoDto {
     private String piType;
     private Long piApplicationDate;
 
-    public void setPiApplicationDate(Instant piApplicationDate) {
-        if (piApplicationDate != null)
-            this.piApplicationDate = piApplicationDate.toEpochMilli();
-    }
+//    public void setPiApplicationDate(Instant piApplicationDate) {
+//        if (piApplicationDate != null)
+//            this.piApplicationDate = piApplicationDate.toEpochMilli();
+//    }
 
-    public void setSourceFund(String sourceFund) {
-        if (sourceFund != null)
-            this.sourceFund = BuildFundWealth.buildFundWealth(sourceFund);
-    }
+//    public void setSourceFund(String sourceFund) {
+//        if (sourceFund != null)
+//            this.sourceFund = BuildFundWealth.buildFundWealth(sourceFund);
+//    }
 
-    public void setSourceWealth(String sourceWealth) {
-        if (sourceWealth != null)
-            this.sourceWealth = BuildFundWealth.buildFundWealth(sourceWealth);
-    }
+//    public void setSourceWealth(String sourceWealth) {
+//        if (sourceWealth != null)
+//            this.sourceWealth = BuildFundWealth.buildFundWealth(sourceWealth);
+//    }
 
-    public void setRiskValuationDate(Instant riskValuationDate) {
-        if (riskValuationDate != null)
-            this.riskValuationDate = riskValuationDate.toEpochMilli();
-    }
+//    public void setRiskValuationDate(Instant riskValuationDate) {
+//        if (riskValuationDate != null)
+//            this.riskValuationDate = riskValuationDate.toEpochMilli();
+//    }
 }
