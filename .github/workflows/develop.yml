@@ -2,7 +2,7 @@ name: AKS-Deployment
 on:
   push:
       branches:
-        - 'develop'
+        - 'develop-bak'
 
 env:
   RESOURCE_GROUP_NAME: 'DTGS-U1-CV1-RG-03'
