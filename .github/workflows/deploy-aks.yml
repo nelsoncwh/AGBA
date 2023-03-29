@@ -1,0 +1,78 @@
+name: AKS Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        default: sit
+      app-name:
+        required: true
+        type: string
+        default: ${{ github.event.repository.name }}
+      repository:
+        required: true
+        type: string
+        default: ${{ github.event.repository.name }}
+      resource_group_name:
+        required: true
+        type: string
+      cluster_name:
+        required: true
+        type: string
+      image_resource_url: 
+        required: true
+        type: string
+      namespace: 
+        required: true
+        type: string
+        
+permissions:
+  id-token: write
+  contents: read
+  actions: read
+
+jobs:
+  deploy-aks:
+    name: Deploy to AKS
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment || 'sit' }}
+    env:
+      WORKFLOWS_REPO_PATH: base
+    steps:
+      - name: OIDC Login to Azure Public Cloud
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set target resource group and cluster
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: ${{ inputs.resource_group_name }}
+          cluster-name: ${{ inputs.cluster_name }}
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Create k8s secret
+        uses: Azure/k8s-create-secret@v1.1
+        with:
+          container-registry-url: ${{ secrets.ACR_URL }}
+          container-registry-username: ${{ secrets.ACR_USERNAME }}
+          container-registry-password: ${{ secrets.ACR_PASSWORD }}
+          secret-name: k8s-secret
+
+      - name: Deploy to AKS
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: ${{ inputs.namespace }}
+          action: deploy
+          images: |
+            '${{ inputs.image_resource_url }}'
+          manifests: |
+            azure-deployment.yaml
+            azure-loadbalancer.yaml
+          imagepullsecrets: |
+            k8s-secret
