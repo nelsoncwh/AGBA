@@ -168,6 +168,26 @@
 
     </dependencies>
 
+	<profiles>
+		<profile>
+			<id>sit</id>
+			<properties>
+				<spring.profiles.active>sit</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>uat</id>
+			<properties>
+				<spring.profiles.active>uat</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>live</id>
+			<properties>
+				<spring.profiles.active>live</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
     <build>
         <plugins>
             <plugin>
