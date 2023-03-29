@@ -1,4 +1,4 @@
-name: AKS-Deployment
+name: buid-source
 on:
   push:
       branches:
@@ -16,7 +16,7 @@ permissions:
   actions: read
 
 jobs:
-  AKS-Deployment:
+  buid-source:
     environment: sit
     env:
       MVN_BUILD_PROFILE: sit
@@ -46,3 +46,13 @@ jobs:
       - run: |
             docker build --no-cache . -t ${{ env.IMAGE_RESOURCE_URL }}
             docker push ${{ env.IMAGE_RESOURCE_URL }}
+            
+  call-workflow-deploy-aks:
+    needs: buid-source
+    name: Deploy
+    uses: ./.github/workflows/deploy-aks.yml
+    with:
+      environment: sit
+      app-name: ${{ github.event.repository.name }}
+      repository: ${{ github.event.repository.name }}
+    secrets: inherit
