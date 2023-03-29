@@ -35,7 +35,7 @@ jobs:
       - name: Build and Test with Maven
         run: mvn clean package -Dmaven.test.skip=true -Psit -f pom.xml
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TEST }}
           
       - name: Docker build & Push to ACR
         uses: azure/docker-login@v1
