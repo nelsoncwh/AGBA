@@ -55,8 +55,8 @@ jobs:
       environment: sit
       app-name: ${{ github.event.repository.name }}
       repository: ${{ github.event.repository.name }}
-      cluster_name: ${{ github.event.env.NAMESPACE }}
-      resource_group_name: 'DTGS-U1-CV1-RG-03'
-      image_resource_url: ${{ github.event.env.IMAGE_RESOURCE_URL }}
+      cluster_name: $CLUSTER_NAME
+      resource_group_name: $RESOURCE_GROUP_NAME
+      image_resource_url: $IMAGE_RESOURCE_URL
       namespace: sit
     secrets: inherit
