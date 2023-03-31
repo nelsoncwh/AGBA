@@ -17,6 +17,7 @@ on:
       resource_group_name:
         required: true
         type: string
+        default: ${{ github.event.env.RESOURCE_GROUP_NAME }}
       cluster_name:
         required: true
         type: string
