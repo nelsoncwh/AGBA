@@ -23,9 +23,6 @@ on:
       namespace: 
         required: true
         type: string
-        
-env:
-  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
   
 permissions:
   id-token: write
@@ -62,7 +59,7 @@ jobs:
           tokenPrefix: '__'
           tokenSuffix: '__'
         env:
-          APP_REPO: ${{ env.IMAGE_RESOURCE_URL }}
+          APP_REPO: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
 
       - name: Create k8s secret
         uses: Azure/k8s-create-secret@v1.1
@@ -78,7 +75,7 @@ jobs:
           namespace: ${{ inputs.namespace }}
           action: deploy
           images: |
-            ${{ env.IMAGE_RESOURCE_URL }}
+            ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
           manifests: |
             azure-deployment.yaml
             azure-loadbalancer.yaml
