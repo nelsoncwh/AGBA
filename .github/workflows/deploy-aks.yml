@@ -25,7 +25,7 @@ on:
         type: string
         
 env:
-  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/aop-be-app-cv1:${{ github.sha }}
+  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
   
 permissions:
   id-token: write
@@ -36,9 +36,6 @@ jobs:
   deploy-aks:
     name: Deploy to AKS
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || 'sit' }}
-    env:
-      WORKFLOWS_REPO_PATH: base
     steps:
       - uses: actions/checkout@v3
           
@@ -65,7 +62,7 @@ jobs:
           tokenPrefix: '__'
           tokenSuffix: '__'
         env:
-          APP_REPO: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
+          APP_REPO: ${{ env.IMAGE_RESOURCE_URL }}
 
       - name: Create k8s secret
         uses: Azure/k8s-create-secret@v1.1
@@ -81,7 +78,7 @@ jobs:
           namespace: ${{ inputs.namespace }}
           action: deploy
           images: |
-            ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
+            ${{ env.IMAGE_RESOURCE_URL }}
           manifests: |
             azure-deployment.yaml
             azure-loadbalancer.yaml
