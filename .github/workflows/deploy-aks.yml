@@ -57,6 +57,15 @@ jobs:
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v3
+        
+      - name: Replace tokens
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: '["azure-deployment.yaml"]'
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+        env:
+          APP_REPO: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
 
       - name: Create k8s secret
         uses: Azure/k8s-create-secret@v1.1
