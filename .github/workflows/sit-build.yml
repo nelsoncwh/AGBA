@@ -62,8 +62,7 @@ jobs:
       environment: sit
       app-name: ${{ github.event.repository.name }}
       repository: ${{ github.event.repository.name }}
-      cluster_name: ${{ env.CLUSTER_NAME }}
-      resource_group_name: ${{ env.RESOURCE_GROUP_NAME }}
-      image_resource_url: ${{ env.IMAGE_RESOURCE_URL }}
+      cluster_name: ${{ vars.CLUSTER_NAME }}
+      resource_group_name: ${{ vars.AKS_RESOURCE_GROUP }}
       namespace: sit
     secrets: inherit
