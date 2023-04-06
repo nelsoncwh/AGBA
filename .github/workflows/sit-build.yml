@@ -37,6 +37,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
           
+      - name: Setup environment variables
+        id: vars
+        run: |
+          echo "::set-output name=aks-resource-group::DTGS-U1-CV1-RG-03"
+          echo "::set-output name=aks-cluster-name::DTGS-U1-CV1-AKS-01"
+          echo "::set-output name=aks-image-url::$IMAGE_RESOURCE_URL"
+          
       - name: Docker build & Push to ACR
         uses: azure/docker-login@v1
         with:
@@ -55,8 +62,8 @@ jobs:
       environment: sit
       app-name: ${{ github.event.repository.name }}
       repository: ${{ github.event.repository.name }}
-      cluster_name: $CLUSTER_NAME
-      resource_group_name: $RESOURCE_GROUP_NAME
-      image_resource_url: $IMAGE_RESOURCE_URL
+      cluster_name: ${{ steps.vars.outputs.aks-cluster-name }}
+      resource_group_name: ${{ steps.vars.outputs.aks-resource-group }}
+      image_resource_url: ${{ steps.vars.outputs.aks-image-url }}
       namespace: sit
     secrets: inherit
