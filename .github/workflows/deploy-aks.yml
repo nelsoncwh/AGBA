@@ -72,7 +72,7 @@ jobs:
           namespace: ${{ inputs.namespace }}
           action: deploy
           images: |
-            '${{ env.IMAGE_RESOURCE_URL }}'
+            ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
           manifests: |
             azure-deployment.yaml
             azure-loadbalancer.yaml
