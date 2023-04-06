@@ -60,9 +60,9 @@ jobs:
     uses: ./.github/workflows/deploy-aks.yml
     with:
       environment: sit
-      app-name: ${{ github.event.repository.name }}
-      repository: ${{ github.event.repository.name }}
-      cluster_name: ${{ vars.CLUSTER_NAME }}
-      resource_group_name: ${{ vars.AKS_RESOURCE_GROUP }}
+      app-name: aop-be-app-cv1
+      repository: aop-be-app-cv1
+      cluster_name: DTGS-U1-CV1-AKS-01
+      resource_group_name: DTGS-U1-CV1-RG-03
       namespace: sit
     secrets: inherit
