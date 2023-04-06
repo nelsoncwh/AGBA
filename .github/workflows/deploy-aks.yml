@@ -70,7 +70,7 @@ jobs:
           namespace: ${{ inputs.namespace }}
           action: deploy
           images: |
-            '${{ inputs.image_resource_url }}'
+            '${{ env.IMAGE_RESOURCE_URL }}'
           manifests: |
             azure-deployment.yaml
             azure-loadbalancer.yaml
