@@ -1,4 +1,4 @@
-name: buid-source
+name: buid-uat-source
 on:
   push:
     branches:
