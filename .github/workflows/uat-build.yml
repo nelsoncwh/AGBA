@@ -17,7 +17,7 @@ permissions:
   actions: read
 
 jobs:
-  buid-source:
+  buid-uat-source:
     environment: uat
     runs-on: ubuntu-latest
     steps:
@@ -45,6 +45,3 @@ jobs:
       - run: |
             docker build --no-cache . -t ${{ env.IMAGE_RESOURCE_URL }}
             docker push ${{ env.IMAGE_RESOURCE_URL }}
-      resource_group_name: DTGS-U1-CV1-RG-03
-      namespace: uat
-    secrets: inherit
