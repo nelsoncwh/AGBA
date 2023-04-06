@@ -1,0 +1,50 @@
+name: buid-source
+on:
+  push:
+    branches:
+      - 'release/v[0-9]+.[0-9]+.[0-9]+'
+      - 'hotfix/v[0-9]+.[0-9]+.[0-9]+'
+
+env:
+  RESOURCE_GROUP_NAME: 'DTGS-U1-CV1-RG-03'
+  CLUSTER_NAME: 'DTGS-U1-CV1-AKS-01'
+  NAMESPACE: 'uat'
+  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/uat/aop-be-app-cv1:${{ github.sha }}
+
+permissions:
+  id-token: write
+  contents: read
+  actions: read
+
+jobs:
+  buid-source:
+    environment: uat
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Open JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'maven'
+          
+      - name: Build and Test with Maven
+        run: mvn clean package -Dmaven.test.skip=true -Psit -f pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          
+      - name: Docker build & Push to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_URL }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      - run: |
+            docker build --no-cache . -t ${{ env.IMAGE_RESOURCE_URL }}
+            docker push ${{ env.IMAGE_RESOURCE_URL }}
+      resource_group_name: DTGS-U1-CV1-RG-03
+      namespace: uat
+    secrets: inherit
