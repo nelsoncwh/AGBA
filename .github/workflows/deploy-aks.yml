@@ -17,13 +17,13 @@ on:
       resource_group_name:
         required: true
         type: string
-        default: ${{ github.event.env.RESOURCE_GROUP_NAME }}
       cluster_name:
         required: true
         type: string
       image_resource_url: 
         required: true
         type: string
+        default: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/aop-be-app-cv1:${{ github.sha }}
       namespace: 
         required: true
         type: string
