@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: aop-be-app-cv1-sit
-          image: __REPLACE_BY_YQ__
+          image: __APP_REPO__
           ports:
             - containerPort: 8080
