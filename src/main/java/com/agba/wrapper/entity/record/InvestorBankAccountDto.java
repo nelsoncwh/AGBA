@@ -24,14 +24,4 @@ public class InvestorBankAccountDto {
     private Boolean isDefault;
     private String status;
     private Boolean isEddaDeposit;
-
-    public void setCreatedDate(Instant createdDate) {
-        if (createdDate != null)
-            this.createdDate = createdDate.toEpochMilli();
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        if (updatedDate != null)
-            this.updatedDate = updatedDate.toEpochMilli();
-    }
 }

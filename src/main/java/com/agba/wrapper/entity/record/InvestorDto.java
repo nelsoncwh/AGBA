@@ -148,101 +148,6 @@ public class InvestorDto {
     private String onboardingEddaProposalReferenceNumber;
     private List<InvestorTaxResidencyDto> taxResidency;
 
-    public void setDateOfBirth(Instant dateOfBirth) {
-        if (dateOfBirth != null)
-            this.dateOfBirth = dateOfBirth.toEpochMilli();
-    }
-
-    public void setIdExpiryDate(Instant idExpiryDate) {
-        if (idExpiryDate != null)
-            this.idExpiryDate = idExpiryDate.toEpochMilli();
-    }
-
-    public void setRiskValuationDate(Instant riskValuationDate) {
-        if (riskValuationDate != null)
-            this.riskValuationDate = riskValuationDate.toEpochMilli();
-    }
-
-    public void setOrderAuthorizationApplicationDate(Instant orderAuthorizationApplicationDate) {
-        if (orderAuthorizationApplicationDate != null)
-            this.orderAuthorizationApplicationDate = orderAuthorizationApplicationDate.toEpochMilli();
-    }
-
-    public void setPiApplicationDate(Instant piApplicationDate) {
-        if (piApplicationDate != null)
-            this.piApplicationDate = piApplicationDate.toEpochMilli();
-    }
-
-    public void setFatcaRenewedDate(Instant fatcaRenewedDate) {
-        if (fatcaRenewedDate != null)
-            this.fatcaRenewedDate = fatcaRenewedDate.toEpochMilli();
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        if (createdDate != null)
-            this.createdDate = createdDate.toEpochMilli();
-    }
-
-    public void setModifiedDate(Instant modifiedDate) {
-        if (modifiedDate != null)
-            this.modifiedDate = modifiedDate.toEpochMilli();
-    }
-
-    public void setApprovedDate(Instant approvedDate) {
-        if (approvedDate != null)
-            this.approvedDate = approvedDate.toEpochMilli();
-    }
-
-    public void setVoidedDate(Instant voidedDate) {
-        if (voidedDate != null)
-            this.voidedDate = voidedDate.toEpochMilli();
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        if (updatedDate != null)
-            this.updatedDate = updatedDate.toEpochMilli();
-    }
-
-    public void setDividendStandingInstructionApplicationDate(Instant dividendStandingInstructionApplicationDate) {
-        if (dividendStandingInstructionApplicationDate != null)
-            this.dividendStandingInstructionApplicationDate = dividendStandingInstructionApplicationDate.toEpochMilli();
-    }
-
-    public void setDividendStandingInstructionRenewalDate(Instant dividendStandingInstructionRenewalDate) {
-        if (dividendStandingInstructionRenewalDate != null)
-            this.dividendStandingInstructionRenewalDate = dividendStandingInstructionRenewalDate.toEpochMilli();
-    }
-
-    public void setRejectedDate(Instant rejectedDate) {
-        if (rejectedDate != null)
-            this.rejectedDate = rejectedDate.toEpochMilli();
-    }
-
-    public void setProcessedDate(Instant processedDate) {
-        if (processedDate != null)
-            this.processedDate = processedDate.toEpochMilli();
-    }
-
-    public void setMonitorStartedDate(Instant monitorStartedDate) {
-        if (monitorStartedDate != null)
-            this.monitorStartedDate = monitorStartedDate.toEpochMilli();
-    }
-
-    public void setMonitorEndedDate(Instant monitorEndedDate) {
-        if (monitorEndedDate != null)
-            this.monitorEndedDate = monitorEndedDate.toEpochMilli();
-    }
-
-    public void setDraftedDate(Instant draftedDate) {
-        if (draftedDate != null)
-            this.draftedDate = draftedDate.toEpochMilli();
-    }
-
-    public void setInvitationCodeUpdatedDate(Instant invitationCodeUpdatedDate) {
-        if (invitationCodeUpdatedDate != null)
-            this.invitationCodeUpdatedDate = invitationCodeUpdatedDate.toEpochMilli();
-    }
-
     public void setSourceFund(String sourceFund) {
         if (sourceFund != null)
             this.sourceFund = BuildFundWealth.buildFundWealth(sourceFund);
@@ -251,15 +156,5 @@ public class InvestorDto {
     public void setSourceWealth(String sourceWealth) {
         if (sourceWealth != null)
             this.sourceWealth = BuildFundWealth.buildFundWealth(sourceWealth);
-    }
-
-    public void setRiskAssessmentDate(Instant riskAssessmentDate) {
-        if (riskAssessmentDate != null)
-            this.riskAssessmentDate = riskAssessmentDate.toEpochMilli();
-    }
-
-    public void setRiskAssessmentRenewalDate(Instant riskAssessmentRenewalDate) {
-        if (riskAssessmentRenewalDate != null)
-            this.riskAssessmentRenewalDate = riskAssessmentRenewalDate.toEpochMilli();
     }
 }

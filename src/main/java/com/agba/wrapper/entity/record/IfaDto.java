@@ -34,24 +34,4 @@ public class IfaDto {
     private String license1;
     private String license4;
     private String license9;
-
-    public void setApprovedDate(Instant approvedDate) {
-        if (approvedDate != null)
-            this.approvedDate = approvedDate.toEpochMilli();
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        if (createdDate != null)
-            this.createdDate = createdDate.toEpochMilli();
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        if (updatedDate != null)
-            this.updatedDate = updatedDate.toEpochMilli();
-    }
-
-    public void setVoidedDate(Instant voidedDate) {
-        if (voidedDate != null)
-            this.voidedDate = voidedDate.toEpochMilli();
-    }
 }

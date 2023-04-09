@@ -74,35 +74,6 @@ public class InvestorJointDto {
     private String employerName;
     private List<InvestorTaxResidencyDto> taxResidency;
 
-//    public void setInvestorId(InvestorDto investor) {
-//        this.investorId = investor.getInvestorId();
-//    }
-
-    public void setCreatedDate(Instant createdDate) {
-        if (createdDate != null)
-            this.createdDate = createdDate.toEpochMilli();
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        if (updatedDate != null)
-            this.updatedDate = updatedDate.toEpochMilli();
-    }
-
-    public void setRiskValuationDate(Instant riskValuationDate) {
-        if (riskValuationDate != null)
-            this.riskValuationDate = riskValuationDate.toEpochMilli();
-    }
-
-    public void setFatcaRenewedDate(Instant fatcaRenewedDate) {
-        if (fatcaRenewedDate != null)
-            this.fatcaRenewedDate = fatcaRenewedDate.toEpochMilli();
-    }
-
-    public void setPiApplicationDate(Instant piApplicationDate) {
-        if (piApplicationDate != null)
-            this.piApplicationDate = piApplicationDate.toEpochMilli();
-    }
-
     public void setSourceFund(String sourceFund) {
         if (sourceFund != null)
             this.sourceFund = BuildFundWealth.buildFundWealth(sourceFund);
