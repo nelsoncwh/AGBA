@@ -1,14 +1,15 @@
-name: buid-source
+name: buid-uat-source
 on:
   push:
-      branches:
-        - 'develop'
+    branches:
+      - 'release/v[0-9]+.[0-9]+.[0-9]+'
+      - 'hotfix/v[0-9]+.[0-9]+.[0-9]+'
 
 env:
   RESOURCE_GROUP_NAME: 'DTGS-U1-CV1-RG-03'
   CLUSTER_NAME: 'DTGS-U1-CV1-AKS-01'
-  NAMESPACE: 'sit'
-  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/sit/aop-be-app-cv1:${{ github.sha }}
+  NAMESPACE: 'uat'
+  IMAGE_RESOURCE_URL: ${{ secrets.ACR_URL }}/uat/aop-be-app-cv1:${{ github.sha }}
 
 permissions:
   id-token: write
@@ -16,10 +17,8 @@ permissions:
   actions: read
 
 jobs:
-  buid-source:
-    environment: sit
-    env:
-      MVN_BUILD_PROFILE: sit
+  buid-uat-source:
+    environment: uat
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
@@ -37,13 +36,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
           
-      - name: Setup environment variables
-        id: vars
-        run: |
-          echo "::set-output name=aks-resource-group::DTGS-U1-CV1-RG-03"
-          echo "::set-output name=aks-cluster-name::DTGS-U1-CV1-AKS-01"
-          echo "::set-output name=aks-image-url::$IMAGE_RESOURCE_URL"
-          
       - name: Docker build & Push to ACR
         uses: azure/docker-login@v1
         with:
@@ -53,16 +45,3 @@ jobs:
       - run: |
             docker build --no-cache . -t ${{ env.IMAGE_RESOURCE_URL }}
             docker push ${{ env.IMAGE_RESOURCE_URL }}
-            
-  call-workflow-deploy-aks:
-    needs: buid-source
-    name: Deploy
-    uses: ./.github/workflows/deploy-aks.yml
-    with:
-      environment: sit
-      app-name: aop-be-app-cv1
-      repository: aop-be-app-cv1
-      cluster_name: DTGS-U1-CV1-AKS-01
-      resource_group_name: DTGS-U1-CV1-RG-03
-      namespace: sit
-    secrets: inherit
