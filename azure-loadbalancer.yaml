@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aop-be-app-cv1
+  name: aop-wms-rest-service
   namespace: __APP_ENV__
   labels:
-    app: aop-be-app-cv1
+    app: aop-wms-rest
     team: spring-boot-actuator
 spec:
   type: ClusterIP
@@ -13,5 +13,5 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: aop-be-app-cv1
+    app: aop-wms-rest
     team: spring-boot-actuator
