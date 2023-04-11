@@ -4,8 +4,6 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.agba.wealth.wrapper.utils.BuildFundWealth;
-
 @Data
 public class InvestorJointDto {
     private Integer investorJointId;
@@ -72,14 +70,4 @@ public class InvestorJointDto {
     private Long piApplicationDate;
     private String employerName;
     private List<InvestorTaxResidencyDto> taxResidency;
-
-    public void setSourceFund(String sourceFund) {
-        if (sourceFund != null)
-            this.sourceFund = BuildFundWealth.buildFundWealth(sourceFund);
-    }
-
-    public void setSourceWealth(String sourceWealth) {
-        if (sourceWealth != null)
-            this.sourceWealth = BuildFundWealth.buildFundWealth(sourceWealth);
-    }
 }

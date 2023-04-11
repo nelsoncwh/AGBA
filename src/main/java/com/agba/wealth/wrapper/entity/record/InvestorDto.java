@@ -4,8 +4,6 @@ package com.agba.wealth.wrapper.entity.record;
 import lombok.Data;
 import java.util.List;
 
-import com.agba.wealth.wrapper.utils.BuildFundWealth;
-
 @Data
 public class InvestorDto {
     private Integer investorId;
@@ -146,14 +144,4 @@ public class InvestorDto {
     private String overrideVsmartRemarks;
     private String onboardingEddaProposalReferenceNumber;
     private List<InvestorTaxResidencyDto> taxResidency;
-
-    public void setSourceFund(String sourceFund) {
-        if (sourceFund != null)
-            this.sourceFund = BuildFundWealth.buildFundWealth(sourceFund);
-    }
-
-    public void setSourceWealth(String sourceWealth) {
-        if (sourceWealth != null)
-            this.sourceWealth = BuildFundWealth.buildFundWealth(sourceWealth);
-    }
 }
