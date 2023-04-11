@@ -58,7 +58,7 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.1
         with:
-          files: '["azure-deployment.yaml"]'
+          files: '["azure-deployment.yaml", "azure-loadbalancer.yaml"]'
           tokenPrefix: '__'
           tokenSuffix: '__'
         env:
