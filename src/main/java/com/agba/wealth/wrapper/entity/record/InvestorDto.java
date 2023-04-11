@@ -1,9 +1,10 @@
-package com.agba.wrapper.entity.record;
+package com.agba.wealth.wrapper.entity.record;
 
 
-import com.agba.wrapper.utils.BuildFundWealth;
 import lombok.Data;
 import java.util.List;
+
+import com.agba.wealth.wrapper.utils.BuildFundWealth;
 
 @Data
 public class InvestorDto {

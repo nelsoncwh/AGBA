@@ -1,4 +1,4 @@
-package com.agba.wrapper.config;
+package com.agba.wealth.wrapper.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

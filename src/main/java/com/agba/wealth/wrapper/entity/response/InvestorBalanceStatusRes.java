@@ -1,9 +1,10 @@
-package com.agba.wrapper.entity.response;
+package com.agba.wealth.wrapper.entity.response;
 
-import com.agba.wrapper.entity.record.InvestorCashBalanceDto;
 import lombok.Data;
 
 import java.util.List;
+
+import com.agba.wealth.wrapper.entity.record.InvestorCashBalanceDto;
 
 //public record InvestorBalanceStatusRes(
 //        boolean validWMS,

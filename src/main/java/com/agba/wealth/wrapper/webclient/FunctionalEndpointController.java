@@ -1,13 +1,14 @@
-package com.agba.wrapper.webclient;
+package com.agba.wealth.wrapper.webclient;
 
-import com.agba.wrapper.entity.record.AdditionalInfoDto;
-import com.agba.wrapper.entity.record.InvestorDto;
-import com.agba.wrapper.entity.record.InvestorJointDto;
-import com.agba.wrapper.entity.request.InvestorCashBalanceReq;
-import com.agba.wrapper.entity.request.InvestorReq;
-import com.agba.wrapper.entity.response.AdditionalRes;
-import com.agba.wrapper.entity.response.InvestorBalanceStatusRes;
-import com.agba.wrapper.entity.response.InvestorRes;
+import com.agba.wealth.wrapper.entity.record.AdditionalInfoDto;
+import com.agba.wealth.wrapper.entity.record.InvestorDto;
+import com.agba.wealth.wrapper.entity.record.InvestorJointDto;
+import com.agba.wealth.wrapper.entity.request.InvestorCashBalanceReq;
+import com.agba.wealth.wrapper.entity.request.InvestorReq;
+import com.agba.wealth.wrapper.entity.response.AdditionalRes;
+import com.agba.wealth.wrapper.entity.response.InvestorBalanceStatusRes;
+import com.agba.wealth.wrapper.entity.response.InvestorRes;
+
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -19,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import static com.agba.wealth.wrapper.data.constant.CommonConstant.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import static com.agba.wrapper.data.constant.CommonConstant.*;
 
 @Slf4j
 @RestController

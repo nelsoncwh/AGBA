@@ -1,7 +1,8 @@
 package com.agba.wrapper.web;
 
-import com.agba.wrapper.entity.request.InvestorReq;
-import com.agba.wrapper.webclient.FunctionalEndpointController;
+import com.agba.wealth.wrapper.entity.request.InvestorReq;
+import com.agba.wealth.wrapper.webclient.FunctionalEndpointController;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

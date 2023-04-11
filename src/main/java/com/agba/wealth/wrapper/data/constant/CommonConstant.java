@@ -1,4 +1,4 @@
-package com.agba.wrapper.data.constant;
+package com.agba.wealth.wrapper.data.constant;
 
 public class CommonConstant {
   // Path Variable

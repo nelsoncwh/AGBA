@@ -1,0 +1,4 @@
+app:
+  apim:
+    webClientDomain: https://api.3601.com.hk/
+    subscriptionKey: cd563a7eaace409a8cbce2a75aaa336b

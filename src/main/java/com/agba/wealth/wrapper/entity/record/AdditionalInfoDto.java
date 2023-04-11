@@ -1,4 +1,4 @@
-package com.agba.wrapper.entity.record;
+package com.agba.wealth.wrapper.entity.record;
 
 import lombok.Data;
 import java.util.List;
