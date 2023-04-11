@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: 8080
           env: 
-            - name: APP_SUBSCRIPTIONKEY
+            - name: APP_APIM_SUBSCRIPTIONKEY
               valueFrom:
                 secretKeyRef:
                   name: secret-wms-apim
