@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aop-be-app-cv1-sit
-  namespace: sit
+  name: aop-be-app-cv1
+  namespace: __APP_ENV__
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: aop-be-app-cv1-sit
+      app: aop-be-app-cv1
   template:
     metadata:
       labels:
-        app: aop-be-app-cv1-sit
+        app: aop-be-app-cv1
         team: spring-boot-actuator
     spec:
       containers:
-        - name: aop-be-app-cv1-sit
+        - name: aop-be-app-cv1
           image: __APP_REPO__
           ports:
             - containerPort: 8080

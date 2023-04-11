@@ -63,6 +63,7 @@ jobs:
           tokenSuffix: '__'
         env:
           APP_REPO: ${{ secrets.ACR_URL }}/${{ inputs.environment }}/${{ inputs.app-name }}:${{ github.sha }}
+          APP_ENV: ${{ inputs.environment }}
 
       - name: Create k8s secret
         uses: Azure/k8s-create-secret@v1.1
