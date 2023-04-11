@@ -121,15 +121,6 @@
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
             <version>${springdoc-openapi-webflux-ui.version}</version>
         </dependency>
-        <!-- util -->
-
-        <!-- For MacOS resolve DNS  problem -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.netty</groupId>-->
-        <!--            <artifactId>netty-resolver-dns-native-macos</artifactId>-->
-        <!--            <scope>runtime</scope>-->
-        <!--            <classifier>osx-aarch_64</classifier>-->
-        <!--        </dependency>-->
 
         <!-- Velocity -->
         <dependency>
@@ -204,15 +195,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <id>github</id>-->
-    <!--            <url>https://maven.pkg.github.com/digitalgenesis-group/aop-be-lib-common-package</url>-->
-    <!--            <snapshots>-->
-    <!--                <enabled>true</enabled>-->
-    <!--            </snapshots>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
 
 </project>

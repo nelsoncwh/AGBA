@@ -2,9 +2,6 @@ package com.agba.wrapper.entity.record;
 
 import lombok.Data;
 
-import java.time.Instant;
-
-
 @Data
 public class IfaCompanyDto {
     private Integer ifaCompanyId;

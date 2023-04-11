@@ -9,10 +9,3 @@ springdoc:
     enabled: true
   api-docs:
     enabled: true
-
-server:
-  port: 8080
-
-app:
-  apim:
-    webClientDomain: https://api.3601.com.hk/

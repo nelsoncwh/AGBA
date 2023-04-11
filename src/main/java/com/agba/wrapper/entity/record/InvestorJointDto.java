@@ -2,8 +2,6 @@ package com.agba.wrapper.entity.record;
 
 import com.agba.wrapper.utils.BuildFundWealth;
 import lombok.Data;
-
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
