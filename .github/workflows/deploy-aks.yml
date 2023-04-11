@@ -32,7 +32,7 @@ jobs:
   deploy-aks:
     name: Deploy to AKS
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || 'sit' }}
+    environment: ${{ inputs.environment }}
     env:
       WORKFLOWS_REPO_PATH: base
     steps:
