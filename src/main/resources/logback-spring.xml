@@ -13,12 +13,6 @@
 			<appendLineSeparator>true</appendLineSeparator>
 		</layout>
 	</appender>
-	<appender name="console"
-		class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>${PATTERN_FORMAT}</pattern>
-		</encoder>
-	</appender>
 
 	<root level="info">
 		<appender-ref ref="json" />

@@ -19,3 +19,17 @@ spec:
           image: __APP_REPO__
           ports:
             - containerPort: 8080
+          env: 
+            - name: APP_SUBSCRIPTIONKEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret-wms-apim
+                  key: apim-secret
+          resources:
+            limits:
+              cpu: '2'
+              memory: 2G
+            requests:
+              cpu: 200m
+              memory: 256M
+              
