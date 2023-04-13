@@ -1,3 +1,3 @@
 app:
   apim:
-    webClientDomain: https://apim-gateway.oneplatform.com.hk/
+    webClientDomain: https://apim-gateway.oneplatform.com.hk/wms-cv1/v1/
