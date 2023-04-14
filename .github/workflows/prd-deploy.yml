@@ -1,0 +1,47 @@
+name: PRD Deploy
+
+on:
+  release:
+    types: [ released ]
+
+jobs:
+  check-deploy:
+    runs-on: ubuntu-latest
+    name: Check Tag and Branch
+    steps:
+      - name: Check PRD tag and branch
+        id: check-tag-branch
+        run: |
+          tagname="${{ github.event.release.tag_name }}"
+          branchname="${{ github.event.release.target_commitish }}"
+          echo $tagname
+          echo $branchname
+          if [[ $tagname =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ && $branchname =~ ^main$ ]]; then
+            echo "Succeed to match tag and branch"
+          else
+            echo "Fail to match tag and branch"
+            exit 1
+          fi
+      - name: Rollback Release
+        if: failure()
+        uses: author/action-rollback@stable
+        with:
+          # Using a known release ID
+          release_id: ${{ github.event.release.id }}
+          # Using a tag name
+          tag: ${{ github.event.release.tag_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  call-workflow-deploy-aks:
+    needs: check-deploy
+    name: Deploy
+    uses: ./.github/workflows/deploy-aks.yml
+    with:
+      environment: production
+      app-name: aop-be-app-cv1
+      repository: aop-be-app-cv1
+      cluster_name: DTGS-P1-CV1-AKS-01
+      resource_group_name: DTGS-P1-CV1-RG-03
+      namespace: uat
+    secrets: inherit
