@@ -8,8 +8,6 @@ import com.agba.wealth.wrapper.entity.request.InvestorReq;
 import com.agba.wealth.wrapper.entity.response.AdditionalRes;
 import com.agba.wealth.wrapper.entity.response.InvestorBalanceStatusRes;
 import com.agba.wealth.wrapper.entity.response.InvestorRes;
-
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Slf4j
 @RestController
 @RequestMapping("/investor")
 public class FunctionalEndpointController {
@@ -69,12 +66,6 @@ public class FunctionalEndpointController {
                     }
                 })
                 .retry(3)
-//                .doOnNext(response -> {
-//                    logger.info("Original Obj: {}", response);
-//                    StringBuilder sb = new StringBuilder();
-//                    headers.forEach((key, value) -> sb.append(String.format("\nHeader '%s' = %s", key, value)));
-//                    logger.info(sb.toString());
-//                })
                 ;
         return investorResponseMono;
     }
@@ -129,19 +120,4 @@ public class FunctionalEndpointController {
         return responseMono;
     }
 
-    //Example for get method
-//    @GetMapping("/get-investor/{accountNumber}")
-//    private Mono<InvestorRes> updateEmployee(@PathVariable String accountNumber) {
-//        Mono<InvestorRes> investorMono = webClient.post().uri("/wms-rest/get-investor-by-account-number").bodyValue(new InvestorReq(accountNumber))
-//                .header("Ocp-Apim-Subscription-Key", apimSubscriptionKey).exchangeToMono(response -> {
-//                    if (response.statusCode().equals(HttpStatus.OK)) {
-//                        return response.bodyToMono(InvestorRes.class);
-//                    } else {
-//                        return Mono.error(new Throwable("Error retrieving data from source"));
-//                    }
-//                }).doOnNext(response -> logger.debug(response.toString()));
-//
-//        investorMono.subscribe(investorRes -> logger.info("investorResponse: {}", investorRes));
-//        return investorMono;
-//    }
 }
