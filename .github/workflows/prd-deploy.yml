@@ -43,5 +43,5 @@ jobs:
       repository: aop-be-app-cv1
       cluster_name: DTGS-P1-CV1-AKS-01
       resource_group_name: DTGS-P1-CV1-RG-03
-      namespace: uat
+      namespace: live
     secrets: inherit
