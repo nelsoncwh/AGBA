@@ -1,3 +1,5 @@
 app: 
   apim:
     wmsRestDomain: https://api.3601.com.hk/uat/wms-cv1/v1/
+    wmsUrlDomain: https://api.3601.com.hk/uat/wms/v1/wms-api
+    subscriptionKey: cd563a7eaace409a8cbce2a75aaa336b
