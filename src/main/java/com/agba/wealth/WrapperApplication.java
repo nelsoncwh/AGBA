@@ -7,11 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "APIs", version = "1.0",
-    description = "Documentation APIs v1.0"))
+        description = "Documentation APIs v1.0"))
 public class WrapperApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(WrapperApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(WrapperApplication.class, args);
+    }
 
 }

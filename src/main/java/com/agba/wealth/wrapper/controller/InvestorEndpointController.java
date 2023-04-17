@@ -1,4 +1,4 @@
-package com.agba.wealth.wrapper.webclient;
+package com.agba.wealth.wrapper.controller;
 
 import com.agba.wealth.wrapper.entity.record.AdditionalInfoDto;
 import com.agba.wealth.wrapper.entity.record.InvestorDto;
@@ -8,28 +8,32 @@ import com.agba.wealth.wrapper.entity.request.InvestorReq;
 import com.agba.wealth.wrapper.entity.response.AdditionalRes;
 import com.agba.wealth.wrapper.entity.response.InvestorBalanceStatusRes;
 import com.agba.wealth.wrapper.entity.response.InvestorRes;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import static com.agba.wealth.wrapper.data.constant.CommonConstant.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
+import static com.agba.wealth.wrapper.data.constant.CommonConstant.*;
+
+@Slf4j
 @RestController
 @RequestMapping("/investor")
-public class FunctionalEndpointController {
+public class InvestorEndpointController {
 
-    private final Logger logger = LoggerFactory.getLogger(FunctionalEndpointController.class);
+    private final Logger logger = LoggerFactory.getLogger(InvestorEndpointController.class);
 
     private WebClient webClient;
 
@@ -37,7 +41,7 @@ public class FunctionalEndpointController {
 
     @Value("${app.apim.subscriptionKey}")
     private String apimSubscriptionKey;
-    @Value("${app.apim.webClientDomain}")
+    @Value("${app.apim.wmsRestDomain}")
     private String webClientDomain;
 
     @Bean
@@ -54,7 +58,7 @@ public class FunctionalEndpointController {
     }
 
     @PostMapping(ACCESS_GET_INVESTOR_BY_AC_NUMBER)
-    private Mono<InvestorRes> getInvestorByAccountNumber(@RequestBody InvestorReq investorReq, @RequestHeader Map<String, String> headers) {
+    private Mono<InvestorRes> getInvestorByAccountNumber(@RequestBody InvestorReq investorReq /*,@RequestHeader Map<String, String> headers*/) {
         logger.info("getInvestorByAccountNumber->{}", investorReq.accountNumber());
         Mono<InvestorRes> investorResponseMono = getWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
                 .bodyValue(investorReq)
@@ -65,14 +69,13 @@ public class FunctionalEndpointController {
                         return Mono.error(new Throwable("Failed to retrieve data from source"));
                     }
                 })
-                .retry(3)
-                ;
+                .retry(3);
         return investorResponseMono;
     }
 
     @PostMapping(ACCESS_GET_ADDITIONAL_INFO_BY_AC_NUMBER)
-    private Mono<AdditionalRes> getAdditionalInfoByAccountNumber2(@RequestBody InvestorReq investorReq, @RequestHeader Map<String, String> headers) {
-        logger.info("getInvestorByAccountNumber->{}", investorReq.accountNumber());
+    private Mono<AdditionalRes> getAdditionalInfoByAccountNumber2(@RequestBody InvestorReq investorReq /*, @RequestHeader Map<String, String> headers*/) {
+        logger.info("getAdditionalInfoByAccountNumber->{}", investorReq.accountNumber());
         Mono<InvestorRes> investorResponseMono = getWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
                 .bodyValue(investorReq)
                 .exchangeToMono(response -> {
@@ -106,7 +109,7 @@ public class FunctionalEndpointController {
     }
 
     @PostMapping(ACCESS_GET_CASH_BALANCE)
-    private Mono<InvestorBalanceStatusRes[]> getCashBalanceByClientNumber(@RequestBody InvestorCashBalanceReq cashBalanceReq, @RequestHeader Map<String, String> headers) {
+    private Mono<InvestorBalanceStatusRes[]> getCashBalanceByClientNumber(@RequestBody InvestorCashBalanceReq cashBalanceReq /*, @RequestHeader Map<String, String> headers*/) {
         Mono<InvestorBalanceStatusRes[]> responseMono = getWebClient().post().uri(PATH_CP_GET_CASH_BALANCE)
                 .bodyValue(cashBalanceReq)
                 .exchangeToMono(response -> {
@@ -119,5 +122,4 @@ public class FunctionalEndpointController {
                 .retry(3);
         return responseMono;
     }
-
 }

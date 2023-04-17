@@ -1,7 +1,7 @@
 package com.agba.wrapper.web;
 
 import com.agba.wealth.wrapper.entity.request.InvestorReq;
-import com.agba.wealth.wrapper.webclient.FunctionalEndpointController;
+import com.agba.wealth.wrapper.controller.InvestorEndpointController;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 @ExtendWith(SpringExtension.class)
-@WebFluxTest(controllers = FunctionalEndpointController.class)
+@WebFluxTest(controllers = InvestorEndpointController.class)
 public class WrapperApplicationTests {
     @Autowired
     private WebTestClient webTestClient;

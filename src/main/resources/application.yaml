@@ -3,6 +3,11 @@ spring:
     active: '@spring.profiles.active@'
   application:
     name: aop-wms-rest
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallback-to-system-locale: true
+    use-code-as-default-message: false
     
 springdoc:
   swagger-ui:
