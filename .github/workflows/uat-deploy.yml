@@ -1,4 +1,4 @@
-name: UAT Deploy
+name: deploy-uat
 
 on:
   release:
