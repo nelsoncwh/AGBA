@@ -12,12 +12,11 @@ public class YN2BoolDeserializer extends JsonDeserializer<Boolean> {
         Boolean b = null;
         if (!Objects.isNull(value)) {
             switch (value) {
-                case "Y" -> b = true;
-                case "N" -> b = false;
+                case "Yes" -> b = true;
+                case "No" -> b = false;
             }
         }
         return b;
-
     }
 
     @Override

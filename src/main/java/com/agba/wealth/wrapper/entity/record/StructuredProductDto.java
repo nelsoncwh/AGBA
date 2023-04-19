@@ -1,6 +1,7 @@
 package com.agba.wealth.wrapper.entity.record;
 
 import com.agba.wealth.wrapper.utils.deserializer.YN2BoolDeserializer;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 
@@ -8,26 +9,26 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class StructuredProductDetailDto implements Serializable {
+public class StructuredProductDto implements Serializable {
 
     String assetId;
     String productSubType;
+    String productSubTypeName;
     String nameBrief;
     String status;
-    String nameEN;
-    String nameZHTW;
-    String nameZHCN;
+    String name;
     String ccy;
     Integer unitRounding;
     Integer riskLevel;
-    String riskLevelDescEN;
+    String riskLevelDesc;
     String issuerId;
-    String issuerEN;
-    String issuerZHTW;
-    String issuerZHCN;
+    @JsonAlias("issuer")
+    String issuer;
+//    String issuerZHTW;
+//    String issuerZHCN;
     Boolean proInvestorOnly;
     Boolean coolingOffChecking;
-    Boolean complexProduct;
+//    Boolean complexProduct;
     String cutoffRule;
     Boolean specialCutoffTime;
     String settlementDate;
@@ -39,9 +40,11 @@ public class StructuredProductDetailDto implements Serializable {
     Float chargeRate;
     String tenorFreq;
     Integer tenor;
+    String tenorPeriod;
     Float issuePrice;
     @JsonDeserialize(using = YN2BoolDeserializer.class)
     Boolean principalGuaranteed;
+    Float flatCouponRate;
     Boolean fixedStrike;
     Float strikeLevel;
     Boolean callable;
@@ -50,16 +53,19 @@ public class StructuredProductDetailDto implements Serializable {
     String callableTo;
     Float callableDay;
     Float autocallLevel;
-    Float couponBarrierLevel;
     Boolean couponBarrier;
+    String couponBarrierFrom;
+    Float couponBarrierLevel;
+    String couponBarrierTo;
     Boolean airBag;
     Float airBagLevel;
     String airBagLevelFreq;
     String airBagFrom;
     String airBagTo;
-    Integer airBagDay;
+//    Integer airBagDay;
+    @JsonDeserialize(using = YN2BoolDeserializer.class)
     Boolean accruedCoupon;
-    Float guaranteePrincipalAmt;
+//    Float guaranteePrincipalAmt;
     Float participationRate;
     Float capLevel;
     List<UnderlyingListDto> underlyingList;

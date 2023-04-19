@@ -20,8 +20,8 @@ import reactor.core.publisher.Mono;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.agba.wealth.wrapper.data.constant.CommonConstant.ACCESS_ELN_LIST;
-import static com.agba.wealth.wrapper.data.constant.CommonConstant.PATH_ELN_LIST;
+import static com.agba.wealth.wrapper.data.constant.Common.ACCESS_ELN_LIST;
+import static com.agba.wealth.wrapper.data.constant.Common.PATH_ELN_LIST;
 
 @Slf4j
 @RestController
@@ -58,10 +58,10 @@ public class ElnListEndpointController {
         if (Objects.isNull(locale))
             locale = Locale.ENGLISH;
         Locale finalLocale = locale;
-
+        logger.info("locale= {}", locale.toString());
         Mono<ElnListRes> elnListMono = getWmsUrlWebClient()
                 .get()
-                .uri(PATH_ELN_LIST)
+                .uri(PATH_ELN_LIST + "&Lang=" + locale)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         Mono<ElnListDto> dto = response.bodyToMono(ElnListDto.class);

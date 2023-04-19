@@ -7,11 +7,10 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class StructuredProductDetailRes implements Serializable {
+public class StructuredProductRes implements Serializable {
 
     String assetId;
     String productSubType;
-    //String productSubType;
     String productSubTypeName;
     String nameBrief;
     String status;
@@ -27,7 +26,7 @@ public class StructuredProductDetailRes implements Serializable {
     String issuer;
     Boolean proInvestorOnly;
     Boolean coolingOffChecking;
-    Boolean complexProduct;
+//    Boolean complexProduct;
     String cutoffRule;
     Boolean specialCutoffTime;
     String settlementDate;
@@ -43,6 +42,7 @@ public class StructuredProductDetailRes implements Serializable {
     String tenorPeriod;
     Float issuePrice;
     String principalGuaranteed;
+    Float flatCouponRate;
     Boolean fixedStrike;
     Float strikeLevel;
     Boolean callable;
@@ -51,17 +51,19 @@ public class StructuredProductDetailRes implements Serializable {
     String callableTo;
     Float callableDay;
     Float autocallLevel;
-    Float couponBarrierLevel;
     Boolean couponBarrier;
+    String couponBarrierFrom;
+    Float couponBarrierLevel;
+    String couponBarrierTo;
     Boolean airBag;
     Float airBagLevel;
     //i18n convert
     String airBagLevelFreq;
     String airBagFrom;
     String airBagTo;
-    Integer airBagDay;
+//    Integer airBagDay;
     String accruedCoupon;
-    Float guaranteePrincipalAmt;
+//    Float guaranteePrincipalAmt;
     Float participationRate;
     Float capLevel;
     List<UnderlyingListRes> underlyingList;

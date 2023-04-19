@@ -9,8 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ElnListRes {
     String isTradeDate;
-    List<StructuredProductDetailRes> structuredProductDetailList;
-    Integer returnCode;
+    List<StructuredProductRes> structuredProduct;
+    String returnCode;
     String returnMsg;
     String processTime;
 }

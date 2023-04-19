@@ -1,9 +1,9 @@
 package com.agba.wealth.wrapper.entity.record;
 
 
-import com.agba.wealth.wrapper.data.constant.CommonConstant;
+import com.agba.wealth.wrapper.data.constant.Common;
 import com.agba.wealth.wrapper.entity.response.ElnListRes;
-import com.agba.wealth.wrapper.entity.response.StructuredProductDetailRes;
+import com.agba.wealth.wrapper.entity.response.StructuredProductRes;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -18,100 +18,94 @@ import java.util.stream.Collectors;
 
 public record ElnListDto(
         String isTradeDate,
-        List<StructuredProductDetailDto> structuredProductDetailList,
-        Integer returnCode,
+        List<StructuredProductDto> structuredProduct,
+        String returnCode,
         String returnMsg,
         String processTime
 ) {
 
-    static MessageSource messgeSource;
+    static MessageSource messageSource;
     static Locale locale;
     static Logger logger = LoggerFactory.getLogger(ElnListDto.class);
 
     public ElnListRes toRes(Locale locale, MessageSource msgSource) {
-        ElnListDto.messgeSource = msgSource;
+        ElnListDto.messageSource = msgSource;
         return new ElnListRes(isTradeDate, convert2StructuredProductDetailListRes(locale), returnCode, returnMsg, processTime);
     }
 
-    public List<StructuredProductDetailRes> convert2StructuredProductDetailListRes(Locale locale) {
+    public List<StructuredProductRes> convert2StructuredProductDetailListRes(Locale locale) {
         ElnListDto.locale = locale;
-        return (Objects.isNull(structuredProductDetailList)) ?
+        return (Objects.isNull(structuredProduct)) ?
                 new ArrayList<>() :
-                structuredProductDetailList.stream()
+                structuredProduct.stream()
                         .map(dto ->
                         {
 
                             ModelMapper mapper = new ModelMapper();
                             mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-                            StructuredProductDetailRes res = mapper.map(dto, StructuredProductDetailRes.class);
+                            StructuredProductRes res = mapper.map(dto, StructuredProductRes.class);
 
                             //ProductSubTypeName
-                            res.setProductSubTypeName(dto.getProductSubType());
+//                            res.setProductSubTypeName(dto.getProductSubType());
                             //Name
-                            res.setName(stringLocaleConvert(locale, dto.getNameEN(), dto.getNameZHTW(), dto.getNameZHCN()));
+//                            res.setName(stringLocaleConvert(locale, dto.getNameEN(), dto.getNameZHTW(), dto.getNameZHCN()));
                             //RiskLevel
-                            if (!Objects.isNull(dto.getRiskLevel())) {
-                                String s;
-                                switch (dto.getRiskLevel()) {
-                                    case 1 -> s = i18n("structuredProductDetailList.riskLevelDesc.low");
-                                    case 2 -> s = i18n("structuredProductDetailList.riskLevelDesc.low2medium");
-                                    case 3 -> s = i18n("structuredProductDetailList.riskLevelDesc.medium");
-                                    case 4 -> s = i18n("structuredProductDetailList.riskLevelDesc.medium2high");
-                                    case 5 -> s = i18n("structuredProductDetailList.riskLevelDesc.high");
-                                    default -> s = CommonConstant.NA;
-                                }
-                                res.setRiskLevelDesc(s);
-                            }
+//                            if (!Objects.isNull(dto.getRiskLevel())) {
+//                                String s;
+//                                switch (dto.getRiskLevel()) {
+//                                    case 1 -> s = i18n("structuredProductDetailList.riskLevelDesc.low");
+//                                    case 2 -> s = i18n("structuredProductDetailList.riskLevelDesc.low2medium");
+//                                    case 3 -> s = i18n("structuredProductDetailList.riskLevelDesc.medium");
+//                                    case 4 -> s = i18n("structuredProductDetailList.riskLevelDesc.medium2high");
+//                                    case 5 -> s = i18n("structuredProductDetailList.riskLevelDesc.high");
+//                                    default -> s = Common.NA;
+//                                }
+//                                res.setRiskLevelDesc(s);
+//                            }
                             //Issuer Name
-                            res.setIssuer(stringLocaleConvert(locale, dto.getIssuerEN(), dto.getIssuerZHTW(), dto.getIssuerZHCN()));
+//                            res.setIssuer(stringLocaleConvert(locale, dto.getIssuerEN(), dto.getIssuerZHTW(), dto.getIssuerZHCN()));
                             //Tenor Period
-                            if (!Objects.isNull(dto.getTenorFreq())) {
-
-                                //TODO TEMP FIX
-                                if (dto.getTenorFreq().contains(CommonConstant.DAY)) {
-                                    dto.setTenorFreq(CommonConstant.DAY);
-                                } else if (dto.getTenorFreq().contains(CommonConstant.MONTH)) {
-                                    dto.setTenorFreq(CommonConstant.MONTH);
-                                }
-                                //TODO END OF TEMP FIX
-
-                                String s;
-                                switch (dto.getTenorFreq()) {
-                                    case CommonConstant.DAY -> s = i18n("structuredProductDetailList.days");
-                                    case CommonConstant.MONTH -> s = i18n("structuredProductDetailList.months");
-                                    default -> s = CommonConstant.EMPTY;
-                                }
-                                if (res.getTenor() != null)
-                                    res.setTenorPeriod(dto.getTenor() + s);
-                                else
-                                    res.setTenorPeriod("?" + s);
-                            }
+//                            if (!Objects.isNull(dto.getTenorFreq())) {
+//                                String s;
+//                                switch (dto.getTenorFreq()) {
+//                                    case Common.DAY -> s = i18n("structuredProductDetailList.days");
+//                                    case Common.MONTH -> s = i18n("structuredProductDetailList.months");
+//                                    default -> s = Common.EMPTY;
+//                                }
+//                                if (Objects.isNull(res.getTenorPeriod())) {
+//                                    if (res.getTenor() != 0) {
+//                                        res.setTenorPeriod(dto.getTenor() + " " + s);
+//                                    } else {
+//                                        res.setTenorPeriod(Common.EMPTY);
+//                                    }
+//                                }
+//                            }
                             //Principal Guaranteed
                             res.setPrincipalGuaranteed(dto.getPrincipalGuaranteed() ?
                                     i18n("structuredProductDetailList.yes") :
                                     i18n("structuredProductDetailList.no")
                             );
                             //Callable Frequency
-                            if (!Objects.isNull(dto.getCallableFreq())) {
+                            if (!Objects.isNull(res.getCallableFreq())) {
                                 String s;
                                 switch (dto.getCallableFreq()) {
-                                    case CommonConstant.DAY -> s = i18n("structuredProductDetailList.daily");
-                                    case CommonConstant.MONTH -> s = i18n("structuredProductDetailList.monthly");
-                                    default -> s = CommonConstant.EMPTY;
+                                    case Common.DAILY -> s = i18n("structuredProductDetailList.daily");
+                                    case Common.MONTHLY -> s = i18n("structuredProductDetailList.monthly");
+                                    default -> s = Common.EMPTY;
                                 }
                                 res.setCallableFreq(s);
                             }
                             //Airbag Level Frequency
-                            if (!Objects.isNull(dto.getAirBagLevelFreq())) {
-                                String s;
-                                switch (dto.getAirBagLevelFreq()) {
-                                    case CommonConstant.DAY -> s = i18n("structuredProductDetailList.daily");
-                                    case CommonConstant.MONTH -> s = i18n("structuredProductDetailList.monthly");
-                                    case "At-Expiry" -> s = i18n("structuredProductDetailList.atExpiry");
-                                    default -> s = CommonConstant.EMPTY;
-                                }
-                                res.setAirBagLevelFreq(s);
-                            }
+//                            if (!Objects.isNull(dto.getAirBagLevelFreq())) {
+//                                String s;
+//                                switch (dto.getAirBagLevelFreq()) {
+//                                    case Common.DAY -> s = i18n("structuredProductDetailList.daily");
+//                                    case Common.MONTH -> s = i18n("structuredProductDetailList.monthly");
+//                                    case "At-Expiry" -> s = i18n("structuredProductDetailList.atExpiry");
+//                                    default -> s = Common.EMPTY;
+//                                }
+//                                res.setAirBagLevelFreq(s);
+//                            }
                             //Accrued Coupon
                             if (!Objects.isNull(dto.getAccruedCoupon())) {
                                 res.setAccruedCoupon(dto.getAccruedCoupon() ?
@@ -135,8 +129,8 @@ public record ElnListDto(
         if (!Objects.isNull(_defaultEN)) {
             String out;
             switch (locale.toString()) {
-                case CommonConstant.ZH_HK -> out = stringDefault(_langHK, _defaultEN);
-                case CommonConstant.ZH_CN -> out = stringDefault(_langCN, _defaultEN);
+                case Common.ZH_HK -> out = stringDefault(_langHK, _defaultEN);
+                case Common.ZH_CN -> out = stringDefault(_langCN, _defaultEN);
                 default -> out = trim(_defaultEN);
             }
             return out;
@@ -146,11 +140,11 @@ public record ElnListDto(
 
     private String i18n(String code) {
         try {
-            return StringUtils.defaultIfBlank(messgeSource.getMessage(code, null, locale), "");
+            return StringUtils.defaultIfBlank(messageSource.getMessage(code, null, locale), "");
         } catch (NoSuchMessageException e) {
             logger.error(e.getMessage() + ", " + Arrays.toString(e.getStackTrace()));
         }
-        return CommonConstant.EMPTY;
+        return Common.EMPTY;
     }
 
     private static String stringDefault(String _input, String _default) {

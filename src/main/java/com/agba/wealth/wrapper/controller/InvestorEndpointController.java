@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.agba.wealth.wrapper.data.constant.CommonConstant.*;
+import static com.agba.wealth.wrapper.data.constant.Common.*;
 
 @Slf4j
 @RestController

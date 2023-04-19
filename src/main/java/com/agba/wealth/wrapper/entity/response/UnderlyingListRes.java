@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UnderlyingListRes {
+    String underlyingId;
     String underlyingName;
     String underlyingMarket;
     String underlyingType;

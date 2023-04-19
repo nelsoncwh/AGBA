@@ -1,6 +1,6 @@
 package com.agba.wealth.wrapper.data.constant;
 
-public class CommonConstant {
+public class Common {
     //i18n
     public static final String EN = "en";
     public static final String ZH_HK = "zh_HK";
@@ -11,6 +11,8 @@ public class CommonConstant {
     public static final String NA = "N/A";
     public static final String DAY = "D";
     public static final String MONTH = "M";
+    public static final String DAILY = "Daily";
+    public static final String MONTHLY = "Monthly";
 
     // Path
     public static final String ACCESS_GET_INVESTOR_BY_AC_NUMBER = "/get-investor";
