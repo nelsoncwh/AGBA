@@ -81,10 +81,10 @@ public record ElnListDto(
 //                                }
 //                            }
                             //Principal Guaranteed
-                            res.setPrincipalGuaranteed(dto.getPrincipalGuaranteed() ?
-                                    i18n("structuredProductDetailList.yes") :
-                                    i18n("structuredProductDetailList.no")
-                            );
+//                            res.setPrincipalGuaranteed(dto.getPrincipalGuaranteed() ?
+//                                    i18n("structuredProductDetailList.yes") :
+//                                    i18n("structuredProductDetailList.no")
+//                            );
                             //Callable Frequency
                             if (!Objects.isNull(res.getCallableFreq())) {
                                 String s;

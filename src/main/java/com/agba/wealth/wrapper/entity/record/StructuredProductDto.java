@@ -42,8 +42,8 @@ public class StructuredProductDto implements Serializable {
     Integer tenor;
     String tenorPeriod;
     Float issuePrice;
-    @JsonDeserialize(using = YN2BoolDeserializer.class)
-    Boolean principalGuaranteed;
+//    @JsonDeserialize(using = YN2BoolDeserializer.class)
+    String principalGuaranteed;
     Float flatCouponRate;
     Boolean fixedStrike;
     Float strikeLevel;
