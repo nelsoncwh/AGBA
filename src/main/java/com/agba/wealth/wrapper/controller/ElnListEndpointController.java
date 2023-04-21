@@ -58,10 +58,11 @@ public class ElnListEndpointController {
         if (Objects.isNull(locale))
             locale = Locale.ENGLISH;
         Locale finalLocale = locale;
+        String wmsLang = locale.toString().replace("_", "-");
         logger.info("locale= {}", locale.toString());
         Mono<ElnListRes> elnListMono = getWmsUrlWebClient()
                 .get()
-                .uri(PATH_ELN_LIST + "&lang=" + locale)
+                .uri(PATH_ELN_LIST + "&lang=" + wmsLang)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         Mono<ElnListDto> dto = response.bodyToMono(ElnListDto.class);
