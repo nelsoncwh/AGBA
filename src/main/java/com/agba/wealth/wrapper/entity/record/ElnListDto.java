@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,11 +42,17 @@ public record ElnListDto(
                 structuredProduct.stream()
                         .map(dto ->
                         {
-
                             ModelMapper mapper = new ModelMapper();
                             mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                             StructuredProductRes res = mapper.map(dto, StructuredProductRes.class);
-
+//                        	DecimalFormat df = new DecimalFormat("0.####");
+//                            String chargeRate = res.getChargeRate();
+//                            if(chargeRate!=null) {
+//                            	try {
+//									float ch = df.parse(chargeRate).floatValue();
+//									res.setChargeRate(df.format(ch));
+//								} catch (ParseException e) {}
+//                            }
                             //ProductSubTypeName
 //                            res.setProductSubTypeName(dto.getProductSubType());
                             //Name
