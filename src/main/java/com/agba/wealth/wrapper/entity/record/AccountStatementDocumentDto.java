@@ -5,7 +5,7 @@ import java.util.List;
 
 public record AccountStatementDocumentDto(
         String accountId,
-        List<String> statement,
-        List<String> confirmationNote
+        List<StatementDto> statement,
+        List<ConfirmationNoteDto> confirmationNote
 ) implements Serializable {
 }
