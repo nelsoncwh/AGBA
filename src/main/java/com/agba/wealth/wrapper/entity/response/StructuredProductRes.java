@@ -44,7 +44,7 @@ public class StructuredProductRes implements Serializable {
     
 //    @JsonProperty("ChargeRate")
     
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float chargeRate;
 //    String chargeRate;
@@ -53,7 +53,7 @@ public class StructuredProductRes implements Serializable {
     //Handled by common wrapper
     String tenorPeriod;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float issuePrice;
     String principalGuaranteed;
@@ -63,7 +63,7 @@ public class StructuredProductRes implements Serializable {
     Float flatCouponRate;
     Boolean fixedStrike;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float strikeLevel;
     Boolean callable;
@@ -71,23 +71,23 @@ public class StructuredProductRes implements Serializable {
     String callableFrom;
     String callableTo;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float callableDay;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float autocallLevel;
     Boolean couponBarrier;
     String couponBarrierFrom;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float couponBarrierLevel;
     String couponBarrierTo;
     Boolean airBag;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float airBagLevel;
     //i18n convert
@@ -98,11 +98,11 @@ public class StructuredProductRes implements Serializable {
     String accruedCoupon;
 //    Float guaranteePrincipalAmt;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float participationRate;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float capLevel;
     List<UnderlyingListRes> underlyingList;
@@ -111,7 +111,7 @@ public class StructuredProductRes implements Serializable {
     Integer unitValue;
     String isin;
 
-    @JsonFormat(pattern = "0.####", shape = Shape.STRING)
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float annualizedCoupon;
     String guaranteePrincipalAmt;
