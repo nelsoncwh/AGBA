@@ -18,7 +18,6 @@ permissions:
 
 jobs:
   buid-uat-source:
-    environment: uat
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
