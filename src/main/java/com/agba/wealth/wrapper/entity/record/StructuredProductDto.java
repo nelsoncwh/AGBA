@@ -24,11 +24,8 @@ public class StructuredProductDto implements Serializable {
     String issuerId;
     @JsonAlias("issuer")
     String issuer;
-//    String issuerZHTW;
-//    String issuerZHCN;
     Boolean proInvestorOnly;
     Boolean coolingOffChecking;
-//    Boolean complexProduct;
     String cutoffRule;
     Boolean specialCutoffTime;
     String settlementDate;
@@ -42,7 +39,6 @@ public class StructuredProductDto implements Serializable {
     Integer tenor;
     String tenorPeriod;
     Float issuePrice;
-//    @JsonDeserialize(using = YN2BoolDeserializer.class)
     String principalGuaranteed;
     Float flatCouponRate;
     Boolean fixedStrike;
@@ -62,10 +58,9 @@ public class StructuredProductDto implements Serializable {
     String airBagLevelFreq;
     String airBagFrom;
     String airBagTo;
-//    Integer airBagDay;
-    @JsonDeserialize(using = YN2BoolDeserializer.class)
-    Boolean accruedCoupon;
-//    Float guaranteePrincipalAmt;
+//    @JsonDeserialize(using = YN2BoolDeserializer.class)
+//    Boolean accruedCoupon;
+    String accruedCoupon;
     Float participationRate;
     Float capLevel;
     List<UnderlyingListDto> underlyingList;

@@ -115,12 +115,12 @@ public record ElnListDto(
 //                                res.setAirBagLevelFreq(s);
 //                            }
                             //Accrued Coupon
-                            if (!Objects.isNull(dto.getAccruedCoupon())) {
-                                res.setAccruedCoupon(dto.getAccruedCoupon() ?
-                                        i18n("structuredProductDetailList.yes") :
-                                        i18n("structuredProductDetailList.no")
-                                );
-                            }
+//                            if (!Objects.isNull(dto.getAccruedCoupon())) {
+//                                res.setAccruedCoupon(dto.getAccruedCoupon() ?
+//                                        i18n("structuredProductDetailList.yes") :
+//                                        i18n("structuredProductDetailList.no")
+//                                );
+//                            }
                             //Underlying Name (Stock Name. Max 60 characters)
                             res.setUnderlyingList(
                                     dto.getUnderlyingList().stream().map(
