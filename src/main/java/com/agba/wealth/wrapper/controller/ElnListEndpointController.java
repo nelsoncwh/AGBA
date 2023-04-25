@@ -44,6 +44,9 @@ public class ElnListEndpointController {
     private WebClient getWmsUrlWebClient() {
         if (Objects.isNull(webClient)) {
             return WebClient.builder()
+            		.codecs(codecs -> codecs
+                    .defaultCodecs()
+                    .maxInMemorySize(500 * 1024))
                     .baseUrl(webClientDomain)
                     .defaultHeaders(header ->
                             header.add("Ocp-Apim-Subscription-Key", apimSubscriptionKey)
