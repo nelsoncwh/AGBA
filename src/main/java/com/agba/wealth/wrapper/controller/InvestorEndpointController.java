@@ -6,6 +6,7 @@ import com.agba.wealth.wrapper.entity.record.InvestorJointDto;
 import com.agba.wealth.wrapper.entity.request.InvestorCashBalanceReq;
 import com.agba.wealth.wrapper.entity.request.InvestorReq;
 import com.agba.wealth.wrapper.entity.response.AdditionalRes;
+import com.agba.wealth.wrapper.entity.response.ErrorRes;
 import com.agba.wealth.wrapper.entity.response.InvestorBalanceStatusRes;
 import com.agba.wealth.wrapper.entity.response.InvestorRes;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,7 @@ public class InvestorEndpointController {
     private String webClientDomain;
 
     @Bean
-    private WebClient getWebClient() {
+    private WebClient getInvestorWebClient() {
         if (Objects.isNull(webClient)) {
             return WebClient.builder()
                     .baseUrl(webClientDomain)
@@ -58,59 +60,71 @@ public class InvestorEndpointController {
     }
 
     @PostMapping(ACCESS_GET_INVESTOR_BY_AC_NUMBER)
-    private Mono<InvestorRes> getInvestorByAccountNumber(@RequestBody InvestorReq investorReq /*,@RequestHeader Map<String, String> headers*/) {
+    private Mono<ResponseEntity<Object>> getInvestorByAccountNumber(@RequestBody InvestorReq investorReq) {
         logger.info("getInvestorByAccountNumber->{}", investorReq.accountNumber());
-        Mono<InvestorRes> investorResponseMono = getWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
+        Mono<Object> investorResponseMono = getInvestorWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
                 .bodyValue(investorReq)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         return response.bodyToMono(InvestorRes.class);
+                    } else if (response.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                        return response.bodyToMono(ErrorRes.class);
                     } else {
                         return Mono.error(new Throwable("Failed to retrieve data from source"));
                     }
                 })
                 .retry(3);
-        return investorResponseMono;
+        return investorResponseMono.flatMap(data -> {
+            if (data instanceof InvestorRes) {
+                return investorResponseMono.map(obj -> ResponseEntity.ok().body(obj));
+            } else {
+                return investorResponseMono.map(obj -> ResponseEntity.badRequest().body(obj));
+            }
+        });
     }
 
     @PostMapping(ACCESS_GET_ADDITIONAL_INFO_BY_AC_NUMBER)
-    private Mono<AdditionalRes> getAdditionalInfoByAccountNumber2(@RequestBody InvestorReq investorReq /*, @RequestHeader Map<String, String> headers*/) {
+    private Mono<ResponseEntity<Object>> getAdditionalInfoByAccountNumber(@RequestBody InvestorReq investorReq) {
         logger.info("getAdditionalInfoByAccountNumber->{}", investorReq.accountNumber());
-        Mono<InvestorRes> investorResponseMono = getWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
+        Mono<Object> investorResponseMono = getInvestorWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
                 .bodyValue(investorReq)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         return response.bodyToMono(InvestorRes.class);
+                    } else if (response.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                        return response.bodyToMono(ErrorRes.class);
                     } else {
                         return Mono.error(new Throwable("Failed to retrieve data from source"));
                     }
                 })
                 .retry(3);
 
-        Mono<AdditionalRes> returnMono = investorResponseMono.map(res -> {
-            ArrayList<AdditionalInfoDto> additionInfoList = new ArrayList<>();
+        return investorResponseMono.flatMap(data -> {
+            if (data instanceof InvestorRes res) {
 
-            //Add Investor into list
-            InvestorDto invDto = res.investor();
-            AdditionalInfoDto infoDto = modelMapper.map(invDto, AdditionalInfoDto.class);
-            additionInfoList.add(infoDto);
+                ArrayList<AdditionalInfoDto> additionInfoList = new ArrayList<>();
 
-            //Add Joint Investors into list
-            List<InvestorJointDto> invJointList = res.jointInvestor();
-            for (InvestorJointDto jointDto : invJointList) {
-                infoDto = modelMapper.map(jointDto, AdditionalInfoDto.class);
+                //Add Investor into list
+                InvestorDto invDto = res.investor();
+                AdditionalInfoDto infoDto = modelMapper.map(invDto, AdditionalInfoDto.class);
                 additionInfoList.add(infoDto);
+
+                //Add Joint Investors into list
+                List<InvestorJointDto> invJointList = res.jointInvestor();
+                for (InvestorJointDto jointDto : invJointList) {
+                    infoDto = modelMapper.map(jointDto, AdditionalInfoDto.class);
+                    additionInfoList.add(infoDto);
+                }
+                return Mono.just(ResponseEntity.ok().body(new AdditionalRes(additionInfoList, res.investorBankAccount())));
+            } else {
+                return investorResponseMono.map(obj -> ResponseEntity.badRequest().body(obj));
             }
-
-            return new AdditionalRes(additionInfoList, res.investorBankAccount());
         });
-
-        return returnMono;
     }
 
     @PostMapping(ACCESS_GET_CASH_BALANCE)
-    private Mono<InvestorBalanceStatusRes[]> getCashBalanceByClientNumber(@RequestBody InvestorCashBalanceReq cashBalanceReq /*, @RequestHeader Map<String, String> headers*/) {
-        Mono<InvestorBalanceStatusRes[]> responseMono = getWebClient().post().uri(PATH_CP_GET_CASH_BALANCE)
+    private Mono<InvestorBalanceStatusRes[]> getCashBalanceByClientNumber(@RequestBody InvestorCashBalanceReq cashBalanceReq) {
+        Mono<InvestorBalanceStatusRes[]> responseMono = getInvestorWebClient().post().uri(PATH_CP_GET_CASH_BALANCE)
                 .bodyValue(cashBalanceReq)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
