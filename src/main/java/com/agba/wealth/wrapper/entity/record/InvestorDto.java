@@ -10,6 +10,7 @@ public class InvestorDto {
     private String accountNumber;
     private String clientNumber;
     private String accountType;
+    private Boolean addressProof;
     private String firstName;
     private String lastName;
     private String chineseName;

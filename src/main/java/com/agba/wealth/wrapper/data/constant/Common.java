@@ -14,12 +14,12 @@ public class Common {
     public static final String DAILY = "Daily";
     public static final String MONTHLY = "Monthly";
 
-    // Path
+    //Access Path
     public static final String ACCESS_GET_INVESTOR_BY_AC_NUMBER = "/get-investor";
     public static final String ACCESS_GET_ADDITIONAL_INFO_BY_AC_NUMBER = "/get-additional-info";
     public static final String ACCESS_GET_CASH_BALANCE = "/cashBalance";
     public static final String ACCESS_ELN_LIST = "/eln/list";
-    public static final String ACCESS_ACCOUNT_STATEMENT = "/account/statement/list";
+    public static final String ACCESS_ACCOUNT_STATEMENT = "/statement/list";
 
     //WMS PATH
     public static final String PATH_WMS_GET_ADDITIONAL_INFO_BY_AC_NUMBER = "/wms-rest/get-additional-info-by-account-number";

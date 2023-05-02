@@ -41,7 +41,7 @@ public class ElnListEndpointController {
     MessageSource messageSource;
 
     @Bean
-    private WebClient getWmsUrlWebClient() {
+    private WebClient getElnListWebClient() {
         if (Objects.isNull(webClient)) {
             return WebClient.builder()
             		.codecs(codecs -> codecs
@@ -63,7 +63,7 @@ public class ElnListEndpointController {
         Locale finalLocale = locale;
         String wmsLang = locale.toString().replace("_", "-");
         logger.info("locale= {}", locale.toString());
-        Mono<ElnListRes> elnListMono = getWmsUrlWebClient()
+        Mono<ElnListRes> elnListMono = getElnListWebClient()
                 .get()
                 .uri(PATH_ELN_LIST + "&lang=" + wmsLang)
                 .exchangeToMono(response -> {
