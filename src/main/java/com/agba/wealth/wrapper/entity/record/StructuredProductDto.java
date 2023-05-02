@@ -58,6 +58,7 @@ public class StructuredProductDto implements Serializable {
     String airBagLevelFreq;
     String airBagFrom;
     String airBagTo;
+    Float guaranteePrincipalAmt;
 //    @JsonDeserialize(using = YN2BoolDeserializer.class)
 //    Boolean accruedCoupon;
     String accruedCoupon;

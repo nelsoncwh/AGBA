@@ -114,7 +114,10 @@ public class StructuredProductRes implements Serializable {
     @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float annualizedCoupon;
-    String guaranteePrincipalAmt;
+
+    @JsonFormat(pattern = "0.##", shape = Shape.STRING)
+    @JsonSerialize(using = SerializerFloat.class)
+    Float guaranteePrincipalAmt;
     String maturityDate;
     List<DocumentDto> documents;
 }
