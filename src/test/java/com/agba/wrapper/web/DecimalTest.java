@@ -6,9 +6,12 @@ import java.util.Date;
 public class DecimalTest {
 
 	public static void main(String[] args) {
-		String b = "1673597136884";
 //		String b = "1673597136884";
+////		String b = "1673597136884";
+//		
+//		System.out.println(new Date(Long.parseLong(b)));
 		
+		String b = "1681833600000";
 		System.out.println(new Date(Long.parseLong(b)));
 	}
 
