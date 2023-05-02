@@ -49,6 +49,7 @@ public class StructuredProductDto implements Serializable {
     String callableTo;
     Float callableDay;
     Float autocallLevel;
+    String autocallLevelFreq;
     Boolean couponBarrier;
     String couponBarrierFrom;
     Float couponBarrierLevel;

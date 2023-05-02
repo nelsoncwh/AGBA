@@ -78,6 +78,7 @@ public class StructuredProductRes implements Serializable {
     @JsonFormat(pattern = "0.##", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
     Float autocallLevel;
+    String autocallLevelFreq;
     Boolean couponBarrier;
     String couponBarrierFrom;
 

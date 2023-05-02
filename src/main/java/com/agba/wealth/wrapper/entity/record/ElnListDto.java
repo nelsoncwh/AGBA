@@ -45,82 +45,12 @@ public record ElnListDto(
                             ModelMapper mapper = new ModelMapper();
                             mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                             StructuredProductRes res = mapper.map(dto, StructuredProductRes.class);
-//                        	DecimalFormat df = new DecimalFormat("0.####");
-//                            String chargeRate = res.getChargeRate();
-//                            if(chargeRate!=null) {
-//                            	try {
-//									float ch = df.parse(chargeRate).floatValue();
-//									res.setChargeRate(df.format(ch));
-//								} catch (ParseException e) {}
-//                            }
-                            //ProductSubTypeName
-//                            res.setProductSubTypeName(dto.getProductSubType());
-                            //Name
-//                            res.setName(stringLocaleConvert(locale, dto.getNameEN(), dto.getNameZHTW(), dto.getNameZHCN()));
-                            //RiskLevel
-//                            if (!Objects.isNull(dto.getRiskLevel())) {
-//                                String s;
-//                                switch (dto.getRiskLevel()) {
-//                                    case 1 -> s = i18n("structuredProductDetailList.riskLevelDesc.low");
-//                                    case 2 -> s = i18n("structuredProductDetailList.riskLevelDesc.low2medium");
-//                                    case 3 -> s = i18n("structuredProductDetailList.riskLevelDesc.medium");
-//                                    case 4 -> s = i18n("structuredProductDetailList.riskLevelDesc.medium2high");
-//                                    case 5 -> s = i18n("structuredProductDetailList.riskLevelDesc.high");
-//                                    default -> s = Common.NA;
-//                                }
-//                                res.setRiskLevelDesc(s);
-//                            }
-                            //Issuer Name
-//                            res.setIssuer(stringLocaleConvert(locale, dto.getIssuerEN(), dto.getIssuerZHTW(), dto.getIssuerZHCN()));
-                            //Tenor Period
-//                            if (!Objects.isNull(dto.getTenorFreq())) {
-//                                String s;
-//                                switch (dto.getTenorFreq()) {
-//                                    case Common.DAY -> s = i18n("structuredProductDetailList.days");
-//                                    case Common.MONTH -> s = i18n("structuredProductDetailList.months");
-//                                    default -> s = Common.EMPTY;
-//                                }
-//                                if (Objects.isNull(res.getTenorPeriod())) {
-//                                    if (res.getTenor() != 0) {
-//                                        res.setTenorPeriod(dto.getTenor() + " " + s);
-//                                    } else {
-//                                        res.setTenorPeriod(Common.EMPTY);
-//                                    }
-//                                }
-//                            }
-                            //Principal Guaranteed
-//                            res.setPrincipalGuaranteed(dto.getPrincipalGuaranteed() ?
-//                                    i18n("structuredProductDetailList.yes") :
-//                                    i18n("structuredProductDetailList.no")
-//                            );
                             //Callable Frequency
-                            if (!Objects.isNull(res.getCallableFreq())) {
-                                String s;
-                                switch (dto.getCallableFreq()) {
-                                    case Common.DAILY -> s = i18n("structuredProductDetailList.daily");
-                                    case Common.MONTHLY -> s = i18n("structuredProductDetailList.monthly");
-                                    default -> s = Common.EMPTY;
-                                }
-                                res.setCallableFreq(s);
+                            if (!Objects.isNull(res.getCallableFreq()) && res.getCallable() && !Objects.isNull(res.getAutocallLevel())) {
+                            	DecimalFormat df = new DecimalFormat("0.##");
+                            	String autoCallFreq = df.format(res.getAutocallLevel()) + "% " + res.getCallableFreq();
+                                res.setAutocallLevelFreq(autoCallFreq);
                             }
-                            //Airbag Level Frequency
-//                            if (!Objects.isNull(dto.getAirBagLevelFreq())) {
-//                                String s;
-//                                switch (dto.getAirBagLevelFreq()) {
-//                                    case Common.DAY -> s = i18n("structuredProductDetailList.daily");
-//                                    case Common.MONTH -> s = i18n("structuredProductDetailList.monthly");
-//                                    case "At-Expiry" -> s = i18n("structuredProductDetailList.atExpiry");
-//                                    default -> s = Common.EMPTY;
-//                                }
-//                                res.setAirBagLevelFreq(s);
-//                            }
-                            //Accrued Coupon
-//                            if (!Objects.isNull(dto.getAccruedCoupon())) {
-//                                res.setAccruedCoupon(dto.getAccruedCoupon() ?
-//                                        i18n("structuredProductDetailList.yes") :
-//                                        i18n("structuredProductDetailList.no")
-//                                );
-//                            }
                             //Underlying Name (Stock Name. Max 60 characters)
                             res.setUnderlyingList(
                                     dto.getUnderlyingList().stream().map(
