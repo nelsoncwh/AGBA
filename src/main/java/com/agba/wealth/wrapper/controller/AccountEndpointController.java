@@ -1,7 +1,10 @@
 package com.agba.wealth.wrapper.controller;
 
 import com.agba.wealth.wrapper.entity.record.AccountStatementDto;
+import com.agba.wealth.wrapper.entity.response.AccountDetailsRes;
+import com.agba.wealth.wrapper.entity.response.AccountPositionListRes;
 import com.agba.wealth.wrapper.entity.response.AccountStatementRes;
+import com.agba.wealth.wrapper.entity.response.SettleAccountListRes;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,21 +54,23 @@ public class AccountEndpointController {
 
     @GetMapping(ACCESS_ACCOUNT_STATEMENT)
     private Mono<AccountStatementRes> accountStatement(@RequestHeader(name = "Accept-Language", required = false) Locale locale,
-                                              @RequestParam("clientId") String clientId,
-                                              @RequestParam("dateFrom") String dateFrom,
-                                              @RequestParam("dateTo") String dateTo) {
+                                                       @RequestParam("clientId") String clientId,
+                                                       @RequestParam("dateFrom") String dateFrom,
+                                                       @RequestParam("dateTo") String dateTo,
+                                                       @RequestParam(value = "productType", required = false) String productType) {
         if (Objects.isNull(locale))
             locale = Locale.ENGLISH;
         Locale finalLocale = locale;
         String wmsLang = locale.toString().replace("_", "-");
-        logger.debug("locale= {}", locale.toString());
+        logger.debug("locale={}, clientId={}, dateFrom={}, dateTo={}, productType={}", locale.toString(), clientId, dateFrom, dateTo, productType);
         Mono<AccountStatementRes> accountStatementResMono = getAccountWebClient()
                 .get()
                 .uri(PATH_ACCOUNT_STATEMENT +
                         "?clientId=" + clientId +
                         "&dateFrom=" + dateFrom +
                         "&dateTo=" + dateTo +
-                        "&lang=" + wmsLang)
+                        "&lang=" + wmsLang +
+                        "&productType= " + productType)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         Mono<AccountStatementDto> dto = response.bodyToMono(AccountStatementDto.class);
@@ -76,5 +81,71 @@ public class AccountEndpointController {
                 })
                 .retry(3);
         return accountStatementResMono;
+    }
+
+    @GetMapping(ACCESS_SETTLE_ACCOUNT_LIST)
+    private Mono<SettleAccountListRes> settleAccountList(@RequestParam("accountId") String accountId) {
+        logger.info("accountId={}", accountId);
+        Mono<SettleAccountListRes> resMono = getAccountWebClient()
+                .get()
+                .uri(PATH_SETTLE_ACCOUNT_LIST +
+                        "?accountId=" + accountId)
+                .exchangeToMono(response -> {
+                    if (response.statusCode().equals(HttpStatus.OK)) {
+                        return response.bodyToMono(SettleAccountListRes.class);
+                    } else {
+                        return Mono.error(new Throwable("Error retrieving data from source"));
+                    }
+                })
+                .retry(3);
+        return resMono;
+    }
+
+    @GetMapping(ACCESS_ACCOUNT_POSITION_LIST)
+    private Mono<AccountPositionListRes> accountPositionList(@RequestParam("accountId") String accountId,
+                                                             @RequestParam(value = "asOfDate", required = false) Integer asOfDate,
+                                                             @RequestParam(value = "ccy", required = false) String ccy,
+                                                             @RequestParam(value = "productType", required = false) String productType) {
+        logger.info("accountId={}, asOfDate={}, ccy={}, productType={}", accountId, asOfDate, ccy, productType);
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("?accountId=%s", accountId));
+        if (asOfDate != null) {
+            sb.append(String.format("&asOfDate=%s", asOfDate));
+        }
+        if (ccy != null) {
+            sb.append(String.format("&ccy=%s", ccy));
+        }
+        if (productType != null) {
+            sb.append(String.format("&productType=%s", productType));
+        }
+        Mono<AccountPositionListRes> resMono = getAccountWebClient()
+                .get()
+                .uri(PATH_ACCOUNT_POSITION_LIST + sb)
+                .exchangeToMono(response -> {
+                    if (response.statusCode().equals(HttpStatus.OK)) {
+                        return response.bodyToMono(AccountPositionListRes.class);
+                    } else {
+                        return Mono.error(new Throwable("Error retrieving data from source"));
+                    }
+                })
+                .retry(3);
+        return resMono;
+    }
+
+    @GetMapping(ACCESS_ACCOUNT_DETAILS)
+    private Mono<AccountDetailsRes> accountDetail(@RequestParam("accountId") String accountId) {
+        logger.info("accountId={}", accountId);
+        Mono<AccountDetailsRes> resMono = getAccountWebClient()
+                .get()
+                .uri(PATH_ACCOUNT_DETAILS + String.format("?accountId=%s", accountId))
+                .exchangeToMono(response -> {
+                    if (response.statusCode().equals(HttpStatus.OK)) {
+                        return response.bodyToMono(AccountDetailsRes.class);
+                    } else {
+                        return Mono.error(new Throwable("Error retrieving data from source"));
+                    }
+                })
+                .retry(3);
+        return resMono;
     }
 }

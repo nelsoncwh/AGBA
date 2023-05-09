@@ -1,0 +1,35 @@
+package com.agba.wealth.wrapper.entity.record;
+
+public record HoldingListDto(
+        String accountId,
+        String productType,
+        String productSubType,
+        String assetId,
+        String assetNameEN,
+        String assetNameZHCN,
+        String assetNameZHTW,
+        String assetNameBrief,
+        String ccy,
+        Integer qty,
+        Integer averageCost,
+        Integer unsettledQty,
+        String market,
+        String maturityDate,
+        Integer price,
+        Integer marketValue,
+        Integer sellableQty,
+        Integer unrealisedPL,
+        Integer unrealisedPLPercentage,
+        Integer proportionInHoldings,
+        Integer accruedIntegererest,
+        String isin,
+        Integer unitRounding,
+        Boolean showUnrealisedPLDetail,
+        String clientId,
+        String clientNameEN,
+        String clientNameZHCN,
+        String clientNameZHTW,
+        Integer rate,
+        Integer holdingQty
+) {
+}

@@ -1,8 +1,5 @@
 package com.agba.wealth.wrapper.entity.record;
 
-import com.agba.wealth.wrapper.utils.deserializer.YN2BoolDeserializer;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,7 +19,6 @@ public class StructuredProductDto implements Serializable {
     Integer riskLevel;
     String riskLevelDesc;
     String issuerId;
-    @JsonAlias("issuer")
     String issuer;
     Boolean proInvestorOnly;
     Boolean coolingOffChecking;
