@@ -17,7 +17,11 @@ public record UnderlyingListDto(
 
     public UnderlyingListRes toRes(Locale locale) {
 //        return new UnderlyingListRes(underlyingId, getUnderlyingName(locale), underlyingMarket, underlyingType);
-        return new UnderlyingListRes(underlyingId, underlyingName, underlyingMarket, underlyingType);
+    	String underlyingCode = underlyingId;
+    	if(underlyingId!=null){
+    		underlyingCode = underlyingId.toUpperCase().replace(".HK", "").replace(".US", "");
+    	}
+        return new UnderlyingListRes(underlyingCode, underlyingName, underlyingMarket, underlyingType);
     }
 
 //    public String getUnderlyingName(Locale locale) {

@@ -47,9 +47,7 @@ public record ElnListDto(
                             StructuredProductRes res = mapper.map(dto, StructuredProductRes.class);
                             //Callable Frequency
                             if (!Objects.isNull(res.getCallableFreq()) && res.getCallable() && !Objects.isNull(res.getAutocallLevel())) {
-                            	DecimalFormat df = new DecimalFormat("0.##");
-                            	String autoCallFreq = df.format(res.getAutocallLevel()) + "% " + res.getCallableFreq();
-                                res.setAutocallLevelFreq(autoCallFreq);
+                                res.setAutocallLevelFreq(res.getCallableFreq());
                             }
                             //Underlying Name (Stock Name. Max 60 characters)
                             res.setUnderlyingList(
