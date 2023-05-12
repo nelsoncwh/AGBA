@@ -10,5 +10,5 @@ elastic:
   application_packages: com.agba.wealth
   environment: ${spring.profiles.active}
   secret_token: test
-  server_url: https://apim-gateway.oneplatform.com.hk/elastic-apm
+  server_url: http://as-apm-server.elastic-system:8200
   service_name: ${spring.application.name}
