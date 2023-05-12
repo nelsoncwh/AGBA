@@ -56,6 +56,11 @@ public record ElnListDto(
                                     ).toList()
                             );
 
+//                            if(res.getRedemptionPayment()!=null && res.getRedemptionPayment().trim().length()>0) {
+//                            	String redemptionMethod = res.getRedemptionPayment().equalsIgnoreCase("C")?"":(res.getRedemptionPayment().equalsIgnoreCase("C")?"":"");
+//                            	res.setRedemptionMethod(redemptionMethod);
+//                            }
+                            
                             return res;
                         })
                         .collect(Collectors.toList());
