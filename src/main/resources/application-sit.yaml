@@ -3,3 +3,12 @@ app:
     wmsRestDomain: https://api.3601.com.hk/sit/wms-cv1/v1/
     wmsUrlDomain: https://api.3601.com.hk/sit/wms/v1/wms-api
     subscriptionKey: cd563a7eaace409a8cbce2a75aaa336b
+    
+elastic: 
+  apm: 
+    enable: true
+  application_packages: com.agba.wealth
+  environment: ${spring.profiles.active}
+  secret_token: test
+  server_url: https://apim-gateway.oneplatform.com.hk/elastic-apm
+  service_name: ${spring.application.name}
