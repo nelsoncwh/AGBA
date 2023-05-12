@@ -44,9 +44,9 @@ public class ElnListEndpointController {
     private WebClient getElnListWebClient() {
         if (Objects.isNull(webClient)) {
             return WebClient.builder()
-            		.codecs(codecs -> codecs
-                    .defaultCodecs()
-                    .maxInMemorySize(500 * 1024))
+                    .codecs(codecs -> codecs
+                            .defaultCodecs()
+                            .maxInMemorySize(500 * 1024))
                     .baseUrl(webClientDomain)
                     .defaultHeaders(header ->
                             header.add("Ocp-Apim-Subscription-Key", apimSubscriptionKey)
@@ -75,6 +75,10 @@ public class ElnListEndpointController {
                     }
                 })
                 .retry(3);
+
+        elnListMono.doOnSuccess(data -> logger.info("elnList={}", data.toString()))
+                .subscribe();
+
         return elnListMono;
     }
 }
