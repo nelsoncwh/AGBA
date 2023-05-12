@@ -40,6 +40,7 @@ public class StructuredProductRes implements Serializable {
     String displayFrom;
     String displayTo;
     String redemptionPayment;
+    String redemptionMethod;
     String remark;
     
 //    @JsonProperty("ChargeRate")

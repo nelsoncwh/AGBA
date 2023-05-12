@@ -1,0 +1,4 @@
+app:
+  apim:
+    wmsRestDomain: https://apim-gateway.oneplatform.com.hk/wms-cv1/v1/
+    wmsUrlDomain: https://wms.oneplatform.com.hk/OFTP/api
