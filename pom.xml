@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>com.agba.wealth</groupId>
 			<artifactId>metric-common</artifactId>
-			<version>0.0.6</version>
+			<version>0.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
