@@ -28,7 +28,7 @@ public class StructuredProductDto implements Serializable {
     String expiryDate;
     String displayFrom;
     String displayTo;
-    String redemptionPayment;
+    String settlementMethod;
     String remark;
     Float chargeRate;
     String tenorFreq;
