@@ -33,7 +33,7 @@ jobs:
           cache: 'maven'
           
       - name: Build and Test with Maven
-        run: mvn clean package -Dmaven.test.skip=true -Psit -f pom.xml
+        run: mvn clean package -Dmaven.test.skip=true -Plive -f pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
           
