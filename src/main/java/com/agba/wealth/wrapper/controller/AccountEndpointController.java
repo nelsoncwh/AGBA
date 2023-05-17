@@ -92,7 +92,8 @@ public class AccountEndpointController {
                         "?accountId=" + accountId)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
-                        return response.bodyToMono(SettleAccountListRes.class);
+                    	Mono<SettleAccountListRes> dto = response.bodyToMono(SettleAccountListRes.class);
+                    	return dto.map(x -> x.toRes());
                     } else {
                         return Mono.error(new Throwable("Error retrieving data from source"));
                     }
