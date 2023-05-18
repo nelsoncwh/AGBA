@@ -1,5 +1,6 @@
 package com.agba.wealth.wrapper.controller;
 
+import com.agba.wealth.wrapper.entity.record.AccountPositionListDto;
 import com.agba.wealth.wrapper.entity.record.AccountStatementDto;
 import com.agba.wealth.wrapper.entity.response.AccountDetailsRes;
 import com.agba.wealth.wrapper.entity.response.AccountPositionListRes;
@@ -63,14 +64,17 @@ public class AccountEndpointController {
         Locale finalLocale = locale;
         String wmsLang = locale.toString().replace("_", "-");
         logger.debug("locale={}, clientId={}, dateFrom={}, dateTo={}, productType={}", locale.toString(), clientId, dateFrom, dateTo, productType);
+        String qs = "clientId=" + clientId 
+        		+ "&dateFrom=" + dateFrom 
+        		+ "&dateTo=" + dateTo 
+        		+ "&lang=" + wmsLang;
+        if(productType!=null & productType.trim().length()>=0) {
+        	qs += "&productType= " + productType;
+        }
         Mono<AccountStatementRes> accountStatementResMono = getAccountWebClient()
                 .get()
                 .uri(PATH_ACCOUNT_STATEMENT +
-                        "?clientId=" + clientId +
-                        "&dateFrom=" + dateFrom +
-                        "&dateTo=" + dateTo +
-                        "&lang=" + wmsLang +
-                        "&productType= " + productType)
+                        "?" + qs )
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         Mono<AccountStatementDto> dto = response.bodyToMono(AccountStatementDto.class);
@@ -103,13 +107,18 @@ public class AccountEndpointController {
     }
 
     @GetMapping(ACCESS_ACCOUNT_POSITION_LIST)
-    private Mono<AccountPositionListRes> accountPositionList(@RequestParam("accountId") String accountId,
+    private Mono<AccountPositionListRes> accountPositionList(@RequestHeader(name = "Accept-Language", required = false) Locale locale,
+    														@RequestParam("accountId") String accountId,
                                                              @RequestParam(value = "asOfDate", required = false) Integer asOfDate,
                                                              @RequestParam(value = "ccy", required = false) String ccy,
                                                              @RequestParam(value = "productType", required = false) String productType) {
         logger.info("accountId={}, asOfDate={}, ccy={}, productType={}", accountId, asOfDate, ccy, productType);
+        if (Objects.isNull(locale))
+            locale = Locale.ENGLISH;
+        String wmsLang = locale.toString().replace("_", "-");
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("?accountId=%s", accountId));
+        sb.append(String.format("&lang=%s", wmsLang));
         if (asOfDate != null) {
             sb.append(String.format("&asOfDate=%s", asOfDate));
         }
@@ -124,7 +133,8 @@ public class AccountEndpointController {
                 .uri(PATH_ACCOUNT_POSITION_LIST + sb)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
-                        return response.bodyToMono(AccountPositionListRes.class);
+                    	Mono<AccountPositionListDto> dto = response.bodyToMono(AccountPositionListDto.class);
+                    	return dto.map(x -> x.toRes());
                     } else {
                         return Mono.error(new Throwable("Error retrieving data from source"));
                     }
