@@ -60,22 +60,22 @@ public class AccountEndpointController {
                                                        @RequestParam("dateTo") String dateTo,
                                                        @RequestParam(value = "productType", required = false) String productType) {
         try {
-        	if (Objects.isNull(locale))
+            if (Objects.isNull(locale))
                 locale = Locale.ENGLISH;
             Locale finalLocale = locale;
             String wmsLang = locale.toString().replace("_", "-");
             logger.info("locale={}, clientId={}, dateFrom={}, dateTo={}, productType={}", locale.toString(), clientId, dateFrom, dateTo, productType);
-            String qs = "clientId=" + clientId 
-            		+ "&dateFrom=" + dateFrom 
-            		+ "&dateTo=" + dateTo 
-            		+ "&lang=" + wmsLang;
-            if(productType!=null && productType.trim().length()>=0) {
-            	qs += "&productType=" + productType;
+            String qs = "clientId=" + clientId
+                    + "&dateFrom=" + dateFrom
+                    + "&dateTo=" + dateTo
+                    + "&lang=" + wmsLang;
+            if (productType != null && productType.trim().length() >= 0) {
+                qs += "&productType=" + productType;
             }
-            logger.info("qs={}",qs);
+            logger.info("qs={}", qs);
             Mono<AccountStatementRes> accountStatementResMono = getAccountWebClient()
                     .get()
-                    .uri(PATH_ACCOUNT_STATEMENT + "?" + qs )
+                    .uri(PATH_ACCOUNT_STATEMENT + "?" + qs)
                     .exchangeToMono(response -> {
                         if (response.statusCode().equals(HttpStatus.OK)) {
                             Mono<AccountStatementDto> dto = response.bodyToMono(AccountStatementDto.class);
@@ -86,8 +86,8 @@ public class AccountEndpointController {
                     })
                     .retry(3);
             return accountStatementResMono;
-        }catch(Exception e) {
-        	e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -101,8 +101,8 @@ public class AccountEndpointController {
                         "?accountId=" + accountId)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
-                    	Mono<SettleAccountListRes> dto = response.bodyToMono(SettleAccountListRes.class);
-                    	return dto.map(x -> x.toRes());
+                        Mono<SettleAccountListRes> dto = response.bodyToMono(SettleAccountListRes.class);
+                        return dto.map(x -> x.toRes());
                     } else {
                         return Mono.error(new Throwable("Error retrieving data from source"));
                     }
@@ -113,7 +113,7 @@ public class AccountEndpointController {
 
     @GetMapping(ACCESS_ACCOUNT_POSITION_LIST)
     private Mono<AccountPositionListRes> accountPositionList(@RequestHeader(name = "Accept-Language", required = false) Locale locale,
-    														@RequestParam("accountId") String accountId,
+                                                             @RequestParam("accountId") String accountId,
                                                              @RequestParam(value = "asOfDate", required = false) Integer asOfDate,
                                                              @RequestParam(value = "ccy", required = false) String ccy,
                                                              @RequestParam(value = "productType", required = false) String productType) {
@@ -138,8 +138,8 @@ public class AccountEndpointController {
                 .uri(PATH_ACCOUNT_POSITION_LIST + sb)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
-                    	Mono<AccountPositionListDto> dto = response.bodyToMono(AccountPositionListDto.class);
-                    	return dto.map(x -> x.toRes());
+                        Mono<AccountPositionListDto> dto = response.bodyToMono(AccountPositionListDto.class);
+                        return dto.map(x -> x.toRes());
                     } else {
                         return Mono.error(new Throwable("Error retrieving data from source"));
                     }

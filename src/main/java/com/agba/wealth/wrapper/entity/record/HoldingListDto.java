@@ -1,15 +1,10 @@
 package com.agba.wealth.wrapper.entity.record;
-import java.util.List;
 
-import com.agba.wealth.wrapper.entity.response.AccountPositionListRes;
-import com.agba.wealth.wrapper.entity.response.StructuredProductRes;
-import com.agba.wealth.wrapper.entity.response.UnderlyingListRes;
 import com.agba.wealth.wrapper.utils.serializer.SerializerFloat;
 import com.agba.wealth.wrapper.utils.serializer.SerializerInteger;
 import com.agba.wealth.wrapper.utils.serializer.SerializerStock;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
@@ -25,16 +20,22 @@ public class HoldingListDto{
         
         String assetName;
 //        @JsonIgnore
-        String assetNameEN;
+//        String assetNameEN;
 //        @JsonIgnore
-        String assetNameZHCN;
+//        String assetNameZHCN;
 //        @JsonIgnore
-        String assetNameZHTW;
+//        String assetNameZHTW;
         String assetNameBrief;
         String ccy;
-        Integer qty;
-        Integer averageCost;
-        Integer unsettledQty;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float qty;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float averageCost;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float unsettledQty;
         String market;
         String maturityDate;
 
@@ -45,19 +46,29 @@ public class HoldingListDto{
         @JsonFormat(pattern = "0.00", shape = Shape.STRING)
         @JsonSerialize(using = SerializerFloat.class)
         Float marketValue;
-        
-        Integer sellableQty;
-        Integer unrealisedPL;
-        Integer unrealisedPLPercentage;
-        Integer proportionInHoldings;
-        Integer accruedIntegererest;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float sellableQty;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float unrealisedPL;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float unrealisedPLPercentage;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float proportionInHoldings;
+        @JsonFormat(pattern = "0.00", shape = Shape.STRING)
+        @JsonSerialize(using = SerializerFloat.class)
+        Float accruedIntegererest;
         String isin;
         Integer unitRounding;
         Boolean showUnrealisedPLDetail;
         String clientId;
-        String clientNameEN;
-        String clientNameZHCN;
-        String clientNameZHTW;
+        String clientName;
+//        String clientNameEN;
+//        String clientNameZHCN;
+//        String clientNameZHTW;
 
         @JsonFormat(pattern = "0.00", shape = Shape.STRING)
         @JsonSerialize(using = SerializerInteger.class)
