@@ -60,7 +60,7 @@ public class InvestorEndpointController {
     }
 
     @PostMapping(ACCESS_GET_INVESTOR_BY_AC_NUMBER)
-    private Mono<ResponseEntity<Object>> getInvestorByAccountNumber(@RequestBody InvestorReq investorReq) {
+    public Mono<ResponseEntity<Object>> getInvestorByAccountNumber(@RequestBody InvestorReq investorReq) {
         logger.info("getInvestorByAccountNumber->{}", investorReq.accountNumber());
         Mono<Object> investorResponseMono = getInvestorWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
                 .bodyValue(investorReq)
@@ -70,7 +70,7 @@ public class InvestorEndpointController {
                     } else if (response.statusCode().equals(HttpStatus.NOT_FOUND)) {
                         return response.bodyToMono(ErrorRes.class);
                     } else {
-                        return Mono.error(new Throwable("Failed to retrieve data from source"));
+                        return Mono.error(new Throwable(ERROR_RETRIEVE_SOURCE));
                     }
                 })
                 .retry(3);
@@ -84,7 +84,7 @@ public class InvestorEndpointController {
     }
 
     @PostMapping(ACCESS_GET_ADDITIONAL_INFO_BY_AC_NUMBER)
-    private Mono<ResponseEntity<Object>> getAdditionalInfoByAccountNumber(@RequestBody InvestorReq investorReq) {
+    public Mono<ResponseEntity<Object>> getAdditionalInfoByAccountNumber(@RequestBody InvestorReq investorReq) {
         logger.info("getAdditionalInfoByAccountNumber->{}", investorReq.accountNumber());
         Mono<Object> investorResponseMono = getInvestorWebClient().post().uri(PATH_WMS_GET_INVESTOR_BY_AC_NUMBER)
                 .bodyValue(investorReq)
@@ -101,7 +101,6 @@ public class InvestorEndpointController {
 
         return investorResponseMono.flatMap(data -> {
             if (data instanceof InvestorRes res) {
-
                 ArrayList<AdditionalInfoDto> additionInfoList = new ArrayList<>();
 
                 //Add Investor into list
@@ -123,17 +122,16 @@ public class InvestorEndpointController {
     }
 
     @PostMapping(ACCESS_GET_CASH_BALANCE)
-    private Mono<InvestorBalanceStatusRes[]> getCashBalanceByClientNumber(@RequestBody InvestorCashBalanceReq cashBalanceReq) {
-        Mono<InvestorBalanceStatusRes[]> responseMono = getInvestorWebClient().post().uri(PATH_CP_GET_CASH_BALANCE)
+    public Mono<InvestorBalanceStatusRes[]> getCashBalanceByClientNumber(@RequestBody InvestorCashBalanceReq cashBalanceReq) {
+        return getInvestorWebClient().post().uri(PATH_CP_GET_CASH_BALANCE)
                 .bodyValue(cashBalanceReq)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         return response.bodyToMono(InvestorBalanceStatusRes[].class);
                     } else {
-                        return Mono.error(new Throwable("Failed to retrieve data from source"));
+                        return Mono.error(new Throwable(ERROR_RETRIEVE_SOURCE));
                     }
                 })
                 .retry(3);
-        return responseMono;
     }
 }
