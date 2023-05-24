@@ -30,7 +30,7 @@ public class HoldingListDto {
     Boolean showUnrealisedPLDetail;
     String clientId;
     String clientName;
-    Integer rate;
+    Float rate;
     Integer holdingQty;
     Float marketValueHKD;
 

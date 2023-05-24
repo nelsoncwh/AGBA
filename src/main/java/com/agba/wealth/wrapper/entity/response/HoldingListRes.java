@@ -1,7 +1,6 @@
 package com.agba.wealth.wrapper.entity.response;
 
 import com.agba.wealth.wrapper.utils.serializer.SerializerFloat;
-import com.agba.wealth.wrapper.utils.serializer.SerializerInteger;
 import com.agba.wealth.wrapper.utils.serializer.SerializerStock;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -57,8 +56,8 @@ public class HoldingListRes {
     String clientId;
     String clientName;
     @JsonFormat(pattern = "0.00", shape = Shape.STRING)
-    @JsonSerialize(using = SerializerInteger.class)
-    Integer rate;
+    @JsonSerialize(using = SerializerFloat.class)
+    Float rate;
     Integer holdingQty;
     @JsonFormat(pattern = "0.00", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
