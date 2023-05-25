@@ -18,5 +18,5 @@ public class AccountPositionListRes {
     List<HoldingListRes> holdingList;
     @JsonFormat(pattern = "0.00", shape = Shape.STRING)
     @JsonSerialize(using = SerializerFloat.class)
-    Float totalMarketValue;
+    Float totalMarketValue; 
 }
