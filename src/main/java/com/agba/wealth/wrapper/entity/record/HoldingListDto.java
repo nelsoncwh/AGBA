@@ -4,6 +4,8 @@ import com.agba.wealth.wrapper.entity.response.HoldingListRes;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
+import java.math.BigDecimal;
+
 @Data
 public class HoldingListDto {
     String accountId;
@@ -19,7 +21,7 @@ public class HoldingListDto {
     String market;
     String maturityDate;
     Float price;
-    Float marketValue;
+    BigDecimal marketValue;
     Float sellableQty;
     Float unrealisedPL;
     Float unrealisedPLPercentage;
@@ -30,14 +32,14 @@ public class HoldingListDto {
     Boolean showUnrealisedPLDetail;
     String clientId;
     String clientName;
-    Float rate;
+    BigDecimal rate;
     Integer holdingQty;
-    Float marketValueHKD;
+    BigDecimal marketValueHKD;
 
     public HoldingListRes toRes() {
         ModelMapper mapper = new ModelMapper();
         HoldingListRes res = mapper.map(this, HoldingListRes.class);
-        res.setMarketValueHKD(this.marketValue * this.rate);
+        res.setMarketValueHKD(this.marketValue.multiply(this.rate));
         return res;
     }
 }
