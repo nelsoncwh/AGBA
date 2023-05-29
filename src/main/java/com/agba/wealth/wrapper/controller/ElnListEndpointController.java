@@ -57,12 +57,12 @@ public class ElnListEndpointController {
     }
 
     @GetMapping(ACCESS_ELN_LIST)
-    private Mono<ElnListRes> elnList(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+    public Mono<ElnListRes> elnList(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         if (Objects.isNull(locale))
             locale = Locale.ENGLISH;
         Locale finalLocale = locale;
         String wmsLang = locale.toString().replace("_", "-");
-        logger.info("locale= {}", locale.toString());
+        logger.info("locale= {}", locale);
         Mono<ElnListRes> elnListMono = getElnListWebClient()
                 .get()
                 .uri(PATH_ELN_LIST + "&lang=" + wmsLang)
@@ -76,7 +76,7 @@ public class ElnListEndpointController {
                 })
                 .retry(3);
 
-        elnListMono.doOnSuccess(data -> logger.info("elnList={}", data.toString()))
+        elnListMono.doOnSuccess(data -> logger.info("elnList={}", data))
                 .subscribe();
 
         return elnListMono;

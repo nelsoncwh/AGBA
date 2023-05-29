@@ -34,4 +34,8 @@ public class Common {
     public static final String PATH_SETTLE_ACCOUNT_LIST = "/account/settleAccList";
     public static final String PATH_ACCOUNT_POSITION_LIST = "/account/positionList";
     public static final String PATH_ACCOUNT_DETAILS = "/client/accountDetails";
+
+
+    //Errors
+    public static final String ERROR_RETRIEVE_SOURCE = "Error retrieving data from source";
 }
