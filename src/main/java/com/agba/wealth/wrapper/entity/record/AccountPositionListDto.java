@@ -1,16 +1,17 @@
 package com.agba.wealth.wrapper.entity.record;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.agba.wealth.wrapper.entity.response.AccountPositionListRes;
 import com.agba.wealth.wrapper.entity.response.HoldingListRes;
 import com.agba.wealth.wrapper.utils.serializer.SerializerFloat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
 
+@Slf4j
 public record AccountPositionListDto(
 
         String returnCode,
@@ -23,15 +24,15 @@ public record AccountPositionListDto(
         Float totalMarketValue
 ) {
     public AccountPositionListRes toRes() {
-        AccountPositionListRes res = new AccountPositionListRes(returnCode, returnMsg, processTime, null, totalMarketValue);
-        res.setHoldingList(getHoldingList());
-        return res;
+        return new AccountPositionListRes(returnCode, returnMsg, processTime, getHoldingList(), totalMarketValue);
     }
 
     private ArrayList<HoldingListRes> getHoldingList() {
+        if (holdingList.isEmpty())
+            return new ArrayList<>();
         ArrayList<HoldingListRes> list = new ArrayList<>();
-        for (HoldingListDto holding : holdingList) {
-            list.add(holding.toRes());
+        for (HoldingListDto dto : holdingList) {
+            list.add(dto.toRes());
         }
         return list;
     }

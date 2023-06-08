@@ -1,6 +1,6 @@
 package com.agba.wealth.wrapper.entity.response;
 
-import com.agba.wealth.wrapper.utils.serializer.SerializerBigDecimal;
+import com.agba.wealth.wrapper.utils.serializer.SerializerBigDecimalNoRounding;
 import com.agba.wealth.wrapper.utils.serializer.SerializerFloat;
 import com.agba.wealth.wrapper.utils.serializer.SerializerStock;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,7 +36,7 @@ public class HoldingListRes {
     @JsonSerialize(using = SerializerFloat.class)
     Float price;
     @JsonFormat(pattern = "0.00")
-    @JsonSerialize(using = SerializerBigDecimal.class)
+    @JsonSerialize(using = SerializerBigDecimalNoRounding.class)
     BigDecimal marketValue;
     @JsonFormat(pattern = "0.00", shape = Shape.NUMBER_FLOAT)
     @JsonSerialize(using = SerializerFloat.class)
@@ -59,10 +59,10 @@ public class HoldingListRes {
     String clientId;
     String clientName;
     @JsonFormat(pattern = "0.00")
-    @JsonSerialize(using = SerializerBigDecimal.class)
+    @JsonSerialize(using = SerializerBigDecimalNoRounding.class)
     BigDecimal rate;
     Integer holdingQty;
     @JsonFormat(pattern = "0.00")
-    @JsonSerialize(using = SerializerBigDecimal.class)
+    @JsonSerialize(using = SerializerBigDecimalNoRounding.class)
     BigDecimal marketValueHKD;
 }

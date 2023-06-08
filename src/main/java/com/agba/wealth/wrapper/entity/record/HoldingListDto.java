@@ -5,6 +5,7 @@ import lombok.Data;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Data
 public class HoldingListDto {
@@ -39,7 +40,8 @@ public class HoldingListDto {
     public HoldingListRes toRes() {
         ModelMapper mapper = new ModelMapper();
         HoldingListRes res = mapper.map(this, HoldingListRes.class);
-        res.setMarketValueHKD(this.marketValue.multiply(this.rate));
+        res.setMarketValueHKD(this.marketValue.setScale(2, RoundingMode.DOWN)
+                .multiply(this.rate.setScale(2, RoundingMode.DOWN)));
         return res;
     }
 }
