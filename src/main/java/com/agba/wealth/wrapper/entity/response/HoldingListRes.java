@@ -52,7 +52,7 @@ public class HoldingListRes {
     Float proportionInHoldings;
     @JsonFormat(pattern = "0.00", shape = Shape.NUMBER_FLOAT)
     @JsonSerialize(using = SerializerFloat.class)
-    Float accruedIntegererest;
+    Float accruedInterest;
     String isin;
     Integer unitRounding;
     Boolean showUnrealisedPLDetail;

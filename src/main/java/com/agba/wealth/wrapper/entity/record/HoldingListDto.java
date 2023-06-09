@@ -27,7 +27,7 @@ public class HoldingListDto {
     Float unrealisedPL;
     Float unrealisedPLPercentage;
     Float proportionInHoldings;
-    Float accruedIntegererest;
+    Float accruedInterest;
     String isin;
     Integer unitRounding;
     Boolean showUnrealisedPLDetail;
