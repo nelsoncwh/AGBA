@@ -64,7 +64,7 @@ public record SettleAccountListRes(
             if (settleAcc.ccy().equalsIgnoreCase("HKD") || settleAcc.ccy().equalsIgnoreCase("USD") || settleAcc.ccy().equalsIgnoreCase("CNY")) {
                 continue;
             }
-            if (settleAcc.cashBal() == 0) {
+            if (settleAcc.cashBal() == 0 && settleAcc.unsettleBal() == 0 && settleAcc.holdingAmt() == 0 && settleAcc.withdrawableAmt() == 0) {
                 it.remove();
             }
         }
